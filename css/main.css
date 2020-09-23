@@ -1,0 +1,28 @@
+
+/* 
+    Created on : 19-09-2020, 23:20:50
+    Author     : KRIEGER
+*/
+* {
+    margin: 0;
+    padding:0;
+}
+body {
+    background-image: url("../img/fondo.jpg");
+    background-size: 400% 400%;
+     background-repeat: no-repeat;
+     background-size: 100%;
+}
+.logeo{
+    color: white;
+    padding: 5%;
+    width: 50%;
+    margin:auto;
+    margin-top: 20%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.salir{
+    display: none;
+    margin-left: 90%;
+    margin-top: 0.5%;
+}
