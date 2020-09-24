@@ -1,14 +1,17 @@
 <?php 
 require 'config/configuracionPaginas.php';
+require 'config/conecta.php';
+$conexion = conecta();
 head("Brechas");
 ?>
-      <div class="container">
+<div class="container" >
          
     <?php
     session_name('brechas');
     session_start();
     if(isset($_SESSION['usuario']) && isset($_SESSION['contrasena']) && isset($_SESSION['tipo'])){
-        echo "Sesion iniciada";
+        despliega_menu($conexion);
+        //echo "Sesion iniciada";
         echo "<script>
             $('.salir').show();
                 </script>";

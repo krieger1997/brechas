@@ -8,7 +8,8 @@
     padding:0;
 }
 body {
-    background-image: url("../img/fondo.jpg");
+   // background-image: url("../img/fondo.jpg");
+    background-image: url("../img/fondo2.jpg");
     background-size: 400% 400%;
      background-repeat: no-repeat;
      background-size: 100%;
@@ -25,4 +26,7 @@ body {
     display: none;
     margin-left: 90%;
     margin-top: 0.5%;
+}
+.ivana{
+    background-color: #F26852 !important;
 }

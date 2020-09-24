@@ -19,9 +19,19 @@ if(!isset($_SESSION['nombre']) && !isset($_SESSION['contrasena']) && !isset($_SE
             $_SESSION['contrasena']=$contrasena;
             $_SESSION['tipo'] = $tipo;
             
-            echo '<div class="alert alert-dark" role="alert">
-  EL TIPO DE USUARIO ES '.$tipo.' Y la sesion id es: </div>';
-            echo session_id();
+            despliega_menu($conexion);
+            //echo '<div class="alert alert-dark" role="alert">  EL TIPO DE USUARIO ES '.$tipo.' Y la sesion id es: </div>';
+            /*echo '<div class="row row-cols-3">';
+            $sql = "SELECT `ID_AREA`, `NOMBRE_AREA` FROM `areas`";
+            $res = $conexion->query($sql);
+            if ($res->num_rows > 0){
+                while ($row = $res->fetch_array(MYSQLI_ASSOC) ){
+                    echo '<div class="col">'.$row['NOMBRE_AREA'].'</div>';
+                    
+                }
+            }
+            echo '</div>';*/
+            //echo session_id();
             echo "<script>
                 $('#logeo').hide();
                 $('.salir').show();
