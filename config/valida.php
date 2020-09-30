@@ -7,17 +7,22 @@ function error(){
     echo "<script>alert('Error al iniciar sesión.'); window.location.href='index.php'</script>";
 }
 
-if(!isset($_SESSION['nombre']) && !isset($_SESSION['contrasena']) && !isset($_SESSION['tipo'])){
+//if(!isset($_SESSION['nombre']) && !isset($_SESSION['contrasena']) && !isset($_SESSION['tipo']) && !isset($_SESSION['area']) ){
+if(!isset($_SESSION['id'])  && !isset($_SESSION['tipo']) && !isset($_SESSION['area']) ){
     $usuario = $_POST['usuario'];
     $contrasena =  $_POST['contrasena'];
-    $sql = "SELECT nombre_de_usuario, contrasena, tipo_de_usuario FROM usuarios WHERE nombre_de_usuario = '$usuario' and contrasena = '$contrasena'";
+    $sql = "SELECT id, nombre_de_usuario, contrasena, tipo_de_usuario, area FROM usuarios WHERE nombre_de_usuario = '$usuario' and contrasena = '$contrasena'";
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
             $tipo = $row['tipo_de_usuario'];
-            $_SESSION['usuario']= $usuario;
-            $_SESSION['contrasena']=$contrasena;
+            $area = $row['area'];
+            $id = $row['id'];
+           // $_SESSION['usuario']= $usuario;
+            //$_SESSION['contrasena']=$contrasena;
             $_SESSION['tipo'] = $tipo;
+            $_SESSION['area'] = $area;
+            $_SESSION['id']=$id;
             
             despliega_menu($conexion);
             //echo '<div class="alert alert-dark" role="alert">  EL TIPO DE USUARIO ES '.$tipo.' Y la sesion id es: </div>';

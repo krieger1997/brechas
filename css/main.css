@@ -27,6 +27,12 @@ body {
     margin-left: 90%;
     margin-top: 0.5%;
 }
-.ivana{
+.salmon{
     background-color: #F26852 !important;
+}
+.mt-10 {
+  margin-top: 10% !important;
+}
+.resumen{
+    display:none;
 }

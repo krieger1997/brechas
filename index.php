@@ -5,11 +5,13 @@ $conexion = conecta();
 head("Brechas");
 ?>
 <div class="container" >
+    <h1 class="text-center font-weight-bold ">PLATAFORMA DE GESTIÓN DE BRECHAS</h1>
          
     <?php
     session_name('brechas');
     session_start();
-    if(isset($_SESSION['usuario']) && isset($_SESSION['contrasena']) && isset($_SESSION['tipo'])){
+    //if(isset($_SESSION['usuario']) && isset($_SESSION['contrasena']) && isset($_SESSION['tipo']) && isset($_SESSION['area']) ){
+    if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area']) ){
         despliega_menu($conexion);
         //echo "Sesion iniciada";
         echo "<script>
@@ -27,7 +29,8 @@ head("Brechas");
                         <label for='txtContraseña' >Contraseña</label>
                         <input type='password' name='contrasena' class='form-control' id='txtContrasena' placeholder='Contraseña'>
                     </div>
-                    <button  class='btn btn-primary'  onclick=\"valida(document.getElementById('txtUsuario').value,document.getElementById('txtContrasena').value)\">Ingresar</button>
+                    <!--<button  class='btn btn-primary'  onclick=\"valida(document.getElementById('txtUsuario').value,document.getElementById('txtContrasena').value)\">Ingresar</button>-->
+                    <button  class='btn btn-primary'  onclick=\"valida($('#txtUsuario').val(),$('#txtContrasena').val())\">Ingresar</button>
                 </form>  
             </div>";
         echo "<script>
@@ -54,5 +57,7 @@ head("Brechas");
     
 
     
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   </body>
 </html>

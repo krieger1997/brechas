@@ -12,6 +12,6 @@ function head($titulo){
     <title>".$titulo."</title>
 </head>
   <body>
-       <div class='salir' ><button type='button' class='btn btn-outline-danger' onclick=\"window.location.href='config/salir.php'\">CERRAR SESIÓN</button></div>";}
+       <div class='salir' ><button type='button' class='btn btn-outline-danger' id='cerrar' onclick=\"window.location.href='config/salir.php'\">CERRAR SESIÓN</button></div>";}
 
 
