@@ -10,8 +10,17 @@ session_name('brechas');
 session_start();
 //if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area']) && isset($_POST['estado']) && isset($_POST['area']) ){
 if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'])  ){
-    echo "<h1>".$_POST['estado']."  ".$_POST['area']."</h1>";
-    var_dump($_POST);
+    echo "<script>            $('.salir').show();                </script>";
+    $estado = $_GET['estado'];
+    $area = $_GET['area'];
+    
+
+
+    
+    
+    
+    
+    
     
     
     
@@ -19,8 +28,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
     
     
 }else{
-    
-    echo "<script>alert('aaaaaaaaa');</script>";
+    vuelve1();
 }
 
 

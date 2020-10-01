@@ -56,5 +56,8 @@ function despliega_menu($conexion){
     echo '</div>';
 
 }
+function vuelve1(){
+    echo "<script>history.back()</script>";
+}
 ?>
 

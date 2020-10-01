@@ -55,15 +55,16 @@ if(isset($_POST['area'])){
         $.ajax({
             data: 'estado='+ estado+'&area='+area,
             url:'config/lista.php',
-            type:'POST',
+            type:'GET',
             success: function() {
-                $(location).attr('href','config/lista.php');
+                $(location).attr('href','config/lista.php?area='+area+'&estado='+estado);
                 
              }  
             });
         
 
       });
+      
     });
     
     

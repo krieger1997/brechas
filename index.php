@@ -1,5 +1,5 @@
 <?php 
-require 'config/configuracionPaginas.php';
+require 'config/configuracionIndex.php';
 require 'config/conecta.php';
 $conexion = conecta();
 head("Brechas");
