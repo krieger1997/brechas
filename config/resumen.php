@@ -11,7 +11,7 @@ if(isset($_POST['area'])){
             $area_titulo = $row['n'];
         }
     }
-    $sql="SELECT COUNT(*) as ab FROM brechas where `estado` = 'ABIERTO'  and area = $area";
+    $sql="SELECT COUNT(*) as ab FROM brechas where `estado` = 'ABIERTA'  and area = $area";
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -25,7 +25,7 @@ if(isset($_POST['area'])){
             $pendiente = $row['pen'];
         }
     }
-    $sql="SELECT COUNT(*) as cer FROM brechas where `estado` = 'CERRADO'  and area = $area";
+    $sql="SELECT COUNT(*) as cer FROM brechas where `estado` = 'CERRADA'  and area = $area";
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -37,11 +37,11 @@ if(isset($_POST['area'])){
     echo"<h1 class='font-weight-bold text-center'>".$area_titulo."</h1>";
     echo '<div class="row row-cols-7" id="botones">';
         echo '<div class="col"></div>';
-        echo '<div class="col"><button type="button" class="btn btn-danger" id="ABIERTO">Brechas abiertas<br><span class="badge badge-light">'.$abierto.'</span></button></div>';
+        echo '<div class="col"><button type="button" class="btn btn-danger" id="ABIERTA">Brechas abiertas<br><span class="badge badge-light">'.$abierto.'</span></button></div>';
         echo '<div class="col"></div>';
         echo '<div class="col"><button type="button" class="btn btn-warning" id="PENDIENTE">Brechas pendientes<br><span class="badge badge-light">'.$pendiente.'</span></button></div>';
         echo '<div class="col"></div>';
-        echo '<div class="col"><button type="button" class="btn btn-success" id="CERRADO">Brechas cerradas<br><span class="badge badge-light">'.$cerrado.'</span></button></div>';
+        echo '<div class="col"><button type="button" class="btn btn-success" id="CERRADA">Brechas cerradas<br><span class="badge badge-light">'.$cerrado.'</span></button></div>';
         echo '<div class="col"></div>';
     echo '</div>';
     
@@ -85,7 +85,7 @@ if(isset($_POST['area'])){
                   </button>
                 </div>
                 <div class="modal-body">
-                    <form action="return false" onsubmit="return false" method="POST">
+                    <form action="return false" onsubmit="return false" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="txtTitulo">Título</label>
                             <input type="text"  name="txtTitulo"  class="form-control" required id="txtTitulo" placeholder="Título">
@@ -98,11 +98,15 @@ if(isset($_POST['area'])){
                             <label for="txtTitulo">Fecha</label>
                             <input type="date"  name="txtFecha"  class="form-control" required id="txtFecha" value="'.date("Y-m-d").'">
                         </div>
+                        <div class="form-group">
+                            <label for="txtImagen">Imagen</label>
+                            <input type="file"  name="txtImagen" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file" id="txtImagen" >
+                        </div>
                     
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                  <button type="button" class="btn btn-primary" onclick="crea_brecha( $(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" onclick="crea_brecha( $(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() , $(\'#txtImagen\')[0].files[0] )">GUARDAR</button>
                   </form>
                 </div>
               </div>
@@ -111,13 +115,23 @@ if(isset($_POST['area'])){
     echo '<button type="button" class="btn btn-primary btn-lg btn-block mt-5" data-toggle="modal" data-target="#exampleModalCenter" id="crea">Crear brecha</button>';
     
     echo "<script>
-	function crea_brecha(titulo, descripcion, fecha)
+	function crea_brecha(titulo, descripcion, fecha, imagen)
 	{
         var area = ".$area.";
+        var formData = new FormData();
+        formData.append('titulo', titulo);
+        formData.append('descripcion',descripcion);
+        formData.append('fecha',fecha);
+        formData.append('area',area);
+        formData.append('imagen',imagen);
+        
+        
 		$.ajax({
 			url: 'config/crea_brecha.php',
 			type: 'POST',
-			data: 'titulo='+titulo+'&descripcion='+descripcion+'&fecha='+fecha+'&area='+area,
+                        data: formData,
+                        contentType: false,
+                        processData: false,
 			success: function(resp){
 				//$('#contenido').html(resp);
                                 alert(resp);

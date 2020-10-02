@@ -13,7 +13,7 @@ function head($titulo){
     <title>".$titulo."</title>
 </head>
   <body>
-       <div class='salir' ><button type='button' class='btn btn-outline-danger' id='cerrar' onclick=\"window.location.href='salir.php'\">CERRAR SESIÓN</button></div>";
+       <div class='mb-3 salir' ><button type='button' class='btn btn-outline-danger' id='cerrar' onclick=\"window.location.href='salir.php'\">CERRAR SESIÓN</button></div>";
     
 }
 
