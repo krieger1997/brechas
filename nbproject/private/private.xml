@@ -11,7 +11,9 @@
             <file>file:/C:/AppServ/www/brechas/index.php</file>
             <file>file:/C:/AppServ/www/brechas/config/crea_brecha.php</file>
             <file>file:/C:/AppServ/www/brechas/config/conecta.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/configuracionIndex.php</file>
             <file>file:/C:/AppServ/www/brechas/config/lista.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/detalle.php</file>
         </group>
     </open-files>
 </project-private>

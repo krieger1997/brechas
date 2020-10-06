@@ -4,17 +4,22 @@ require 'conecta.php';
 $conexion = conecta();
 head("Brechas");
 ?>
-<div class="container" >
+
 <?php
 session_name('brechas');
 session_start();
 //if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area']) && isset($_POST['estado']) && isset($_POST['area']) ){
 if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area']) && isset($_GET['estado']) && isset($_GET['area'])  ){
     
-    echo "<script>            $('.salir').show();                </script>";
+    //boton para volver a mostrar lista, inicia invisible
+    echo '<button type="button" onclick="muestra_lista();" id="muestra_brecha" class="btn btn-outline-light float-left ml-5">Mostrar brechas</button>';
+    
+    echo '<div class="container" >';
+    echo "<script>$('.salir').show();</script>";
     $estado = $_GET['estado'];
     $area = $_GET['area'];
     
+    //titulo
     $sql="SELECT `ID_AREA`, `NOMBRE_AREA` FROM `areas` WHERE `ID_AREA` = $area";
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
@@ -23,21 +28,44 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
         }
     }
     
-    
-    echo '<div class="list-group">';
-    
+    echo "<div id='contenido'>";//div de contenido dinamico
+    echo '<div class="list-group " id="lista_brechas">';//lista
     $sql="SELECT `id`, `area`, DATE_FORMAT(fecha, '%d/%m/%Y') as fecha_formateada, `titulo`, `descripcion`, `autor`, `imagen`, `estado` FROM `brechas` WHERE `area` = $area AND `estado` = '$estado'";
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
         while($row = $result->fetch_array(MYSQLI_ASSOC)){
-            echo '<a href="#" class="list-group-item list-group-item-action" id="'.$row['id'].'">'.$row['fecha_formateada'].' - ' .$row['titulo'] .' - ' . $row['descripcion'] .'</a>';
+            //elementos de la lista
+            echo '<a href="#"  onclick="detalle($(this).attr(\'id\'));"  class="list-group-item list-group-item-action lista" id="'.$row['id'].'">'.$row['fecha_formateada'].' - ' .$row['titulo'] .' - ' . $row['descripcion'] .'</a>';
         }
     }
-    
-    
-
-
     echo '</div>';
+    echo '</div>';
+     echo"<script>
+    function detalle(id_brecha){
+             
+          $.ajax({
+                url: 'detalle.php',
+                type: 'POST',
+                data: 'id_brecha='+id_brecha,
+                success: function(resp){
+                        //$('#contenido').html(resp);                        
+                        $('#contenido').append(resp);                        
+                        $('#lista_brechas').hide(); // oculta div lista
+                        $('#muestra_brecha').show(1000); //boton de mostrar lista    
+                }
+        });
+    }
+    
+    //vuelve a mostrar la lista y oculta el boton
+    function muestra_lista(){
+        
+        $('#respuesta').remove(); // elimina el div respuesta, que viene de detalle.php 
+        $('#lista_brechas').show(); // muestra lista (no funciona)
+        $('#muestra_brecha').hide();//boton de mostrar lista 
+        $('#respuesta').hide(); //oculta respuesta
+    }
+
+</script>";
     
     
     
@@ -57,4 +85,5 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 ?>
 </div>
     </body>
-</html>
+    
+    </html>
