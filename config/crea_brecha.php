@@ -20,7 +20,7 @@ $resultado = "--";
 //}else{
 //    $resultado="no imagen";
 //}
-if( isset($_FILES['imagen']) && $nombre_img == !NULL ){
+if( isset($_FILES['imagen']) && $nombre_img == !NULL ){ 
     if($_FILES['imagen']['type'] == "image/gif" || $_FILES['imagen']['type'] == "image/jpg"  || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png" ){
         //ruta donde se guardaran las fotos
         $directorio = $_SERVER['DOCUMENT_ROOT']."/brechas/subidas/";
@@ -46,7 +46,14 @@ if( isset($_FILES['imagen']) && $nombre_img == !NULL ){
         $resultado = "error de formato de imagen";
     }
 }else{
-    $resultado = "imagen demasiado grande";
+    
+    $sql="INSERT INTO `brechas`( `area`, `fecha`, `titulo`, `descripcion`, `autor`) VALUES ($area, '$fecha', '$titulo', '$descripcion', $autor)";
+    if(mysqli_query($conexion,$sql)){
+        $resultado ="¡Brecha creada exitosamente sin imagen!";
+    }else{
+        $resultado = "Error: " . $sql . "<br>" . mysqli_error($conexion);
+
+    }
 }
 
 echo $resultado;

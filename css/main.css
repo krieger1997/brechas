@@ -9,10 +9,16 @@
 }
 body {
    //background-image: url("../img/fondo.jpg");
-    background-image: url("../img/fondo2.jpg");
+   background: url("../img/fondo2.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+   /* background-image: url("../img/fondo2.jpg");
     background-size: 400% 400%;
      background-repeat: no-repeat;
-     background-size: 100%;
+     background-size: cover;*/
 }
 .logeo{
     color: white;
@@ -38,4 +44,7 @@ body {
 }
 #muestra_brecha{
     display:none;
+}
+img{
+    //max-height: 480px; //se arreglo con la nueva config del fondo
 }

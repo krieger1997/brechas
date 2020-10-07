@@ -12,7 +12,7 @@ function despliega_menu($conexion){
    //echo "<div style='background-color: #F26852'>".$_SESSION['area']."</div>";
     
     echo '<div class="row row-cols-3">';
-    $sql = "SELECT `ID_AREA`, `NOMBRE_AREA` FROM `areas`";
+    $sql = "SELECT `ID_AREA`, `NOMBRE_AREA` FROM `areas` where ID_AREA <> 0";
     $res = $conexion->query($sql);
     if ($res->num_rows > 0){
         while ($row = $res->fetch_array(MYSQLI_ASSOC) ){

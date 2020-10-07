@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 02-10-2020 a las 21:36:10
+-- Tiempo de generación: 07-10-2020 a las 05:38:24
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -38,6 +38,7 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`ID_AREA`, `NOMBRE_AREA`) VALUES
+(0, 'Supervision'),
 (1, 'Adquisiciones y Abastecimiento'),
 (2, 'Mantenimiento'),
 (3, 'GPDO'),
@@ -58,7 +59,7 @@ CREATE TABLE `brechas` (
   `titulo` tinytext CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `autor` tinyint(4) NOT NULL,
-  `imagen` varchar(60) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `imagen` varchar(60) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL,
   `estado` varchar(10) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ABIERTA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -76,7 +77,12 @@ INSERT INTO `brechas` (`id`, `area`, `fecha`, `titulo`, `descripcion`, `autor`, 
 (8, 1, '2020-09-26', 'asdas', 'asdasdsd', 1, NULL, 'ABIERTA'),
 (9, 1, '2020-10-02', 'asdsa', 'sadssad', 1, 'DatabaseDiagram.jpeg', 'ABIERTA'),
 (10, 1, '2020-10-02', 'saddsa', 'dsas', 1, 'velocidad.png', 'ABIERTA'),
-(11, 1, '2020-10-02', 'asdsa', 'saddsadsa', 1, 'mas.png', 'ABIERTA');
+(11, 1, '2020-10-02', 'asdsa', 'saddsadsa', 1, 'mas.png', 'ABIERTA'),
+(12, 2, '2020-10-06', 'TADASDASDASD', 'ssdmfasdljfasdñjfas ldkjhasldkj fhasdljkf halskj fahsljkfd h lf sjdfhlaskjdfas df', 1, 'L1e_o1Ep.jpg', 'ABIERTA'),
+(13, 3, '2020-10-06', 'NUEVA BRECHA FORMULARIO', 'asdasa asdas das ads adsa dsasda dsadsds', 1, 'tikrlios.jpg', 'ABIERTA'),
+(14, 3, '2020-10-07', 'assssssssssss', 'sssssssssssssssss', 2, 'ibai.jpg', 'ABIERTA'),
+(15, 3, '2020-10-07', 'hkjbllhkj', 'jlhñjl', 2, 'ibai.jpg', 'ABIERTA'),
+(16, 3, '2020-10-07', 'asda', 'asdasd', 2, NULL, 'ABIERTA');
 
 -- --------------------------------------------------------
 
@@ -124,7 +130,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre_de_usuario`, `contrasena`, `tipo_de_usuario`, `area`, `rut`, `nombre`, `seg_nombre`, `pri_apellido`, `seg_apellido`, `email`, `telefono`) VALUES
 (1, '19598102', 'admin', 1, 3, '19.598.102-7', 'CLAUDIO', 'ALEJANDRO', 'CABRERA', 'MARTÍNEZ', 'claudio.cabreram@sansano.usm.cl', '+56979287465'),
-(2, '159', '159', 2, 1, NULL, '', NULL, '', '', '', NULL);
+(2, '159', '159', 2, 1, '11.111.111-1', 'AAAA', 'BBBBB', 'CCCCC', 'DDDD', 'ABCD@ABCD.COM', '+56900000000');
 
 --
 -- Índices para tablas volcadas
@@ -167,13 +173,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `brechas`
 --
 ALTER TABLE `brechas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_de_usuario`
 --
 ALTER TABLE `tipo_de_usuario`
-  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

@@ -37,6 +37,36 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
             //elementos de la lista
             echo '<a href="#"  onclick="detalle($(this).attr(\'id\'));"  class="list-group-item list-group-item-action lista" id="'.$row['id'].'">'.$row['fecha_formateada'].' - ' .$row['titulo'] .' - ' . $row['descripcion'] .'</a>';
         }
+    }else{
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>¡Vaya!</strong> No hay nada aquí.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="x"  onclick="vuelve();">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <script>function vuelve(){window.history.back();
+            }
+            
+            $(document).ready(function(){
+                //setTimeout(alert("aa"),2000);
+                setTimeout(function(){$("#x").css("background-color", "black" );},2500);
+                var n = 1;
+                setInterval(function(){
+                atencion(n);
+                n++;
+                },500);
+            });
+
+
+            function atencion(num){
+                if(num%2==0){
+                    $("#x").css("background-color", "black" );
+                }else{
+                    $("#x").css( "background-color", "transparent" );
+                }
+            }
+
+            </script>
+          </div>';
     }
     echo '</div>';
     echo '</div>';
@@ -51,7 +81,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                         //$('#contenido').html(resp);                        
                         $('#contenido').append(resp);                        
                         $('#lista_brechas').hide(); // oculta div lista
-                        $('#muestra_brecha').show(1000); //boton de mostrar lista    
+                        $('#muestra_brecha').show(500); //boton de mostrar lista    
                 }
         });
     }
@@ -61,8 +91,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
         
         $('#respuesta').remove(); // elimina el div respuesta, que viene de detalle.php 
         $('#lista_brechas').show(); // muestra lista (no funciona)
-        $('#muestra_brecha').hide();//boton de mostrar lista 
-        $('#respuesta').hide(); //oculta respuesta
+        $('#muestra_brecha').hide(500);//boton de mostrar lista 
+        //$('#respuesta').hide(); //oculta respuesta
     }
 
 </script>";
