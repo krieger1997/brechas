@@ -4,17 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/AppServ/www/brechas/config/configuracionPaginas.php</file>
-            <file>file:/C:/AppServ/www/brechas/config/salir.php</file>
             <file>file:/C:/AppServ/www/brechas/config/envia_comentario.php</file>
             <file>file:/C:/AppServ/www/brechas/config/valida.php</file>
-            <file>file:/C:/AppServ/www/brechas/config/resumen.php</file>
-            <file>file:/C:/AppServ/www/brechas/css/main.css</file>
-            <file>file:/C:/AppServ/www/brechas/index.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/edita_brecha.php</file>
             <file>file:/C:/AppServ/www/brechas/config/crea_brecha.php</file>
-            <file>file:/C:/AppServ/www/brechas/config/conecta.php</file>
             <file>file:/C:/AppServ/www/brechas/config/configuracionIndex.php</file>
             <file>file:/C:/AppServ/www/brechas/config/lista.php</file>
             <file>file:/C:/AppServ/www/brechas/config/detalle.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/salir.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/resumen.php</file>
+            <file>file:/C:/AppServ/www/brechas/css/main.css</file>
+            <file>file:/C:/AppServ/www/brechas/index.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/conecta.php</file>
         </group>
     </open-files>
 </project-private>

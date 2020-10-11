@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 09-10-2020 a las 05:58:19
+-- Tiempo de generación: 11-10-2020 a las 05:45:03
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -79,7 +79,7 @@ INSERT INTO `brechas` (`id`, `area`, `fecha`, `titulo`, `descripcion`, `autor`, 
 (10, 1, '2020-10-02', 'saddsa', 'dsas', 1, 'velocidad.png', 'ABIERTA'),
 (11, 1, '2020-10-02', 'asdsa', 'saddsadsa', 1, 'mas.png', 'ABIERTA'),
 (12, 2, '2020-10-06', 'TADASDASDASD', 'ssdmfasdljfasdñjfas ldkjhasldkj fhasdljkf halskj fahsljkfd h lf sjdfhlaskjdfas df', 1, 'L1e_o1Ep.jpg', 'ABIERTA'),
-(13, 3, '2020-10-06', 'NUEVA BRECHA FORMULARIO', 'asdasa asdas das ads adsa dsasda dsadsds', 1, 'tikrlios.jpg', 'ABIERTA'),
+(13, 3, '2020-10-09', 'NUEVA BRECHA FORMULARIO editado x2', 'asdasa asdas das ads adsa dsasda dsadsds editadox2', 1, 'tikrlios.jpg', 'ABIERTA'),
 (14, 3, '2020-10-07', 'assssssssssss', 'sssssssssssssssss', 2, 'ibai.jpg', 'ABIERTA'),
 (15, 3, '2020-10-07', 'hkjbllhkj', 'jlhñjl', 2, 'ibai.jpg', 'ABIERTA'),
 (16, 3, '2020-10-07', 'asda', 'asdasd', 2, NULL, 'ABIERTA');
@@ -129,9 +129,11 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre_de_usuario`, `contrasena`, `tipo_de_usuario`, `area`, `rut`, `nombre`, `seg_nombre`, `pri_apellido`, `seg_apellido`, `email`, `telefono`) VALUES
-(1, '19598102', 'admin', 1, 3, '19.598.102-7', 'CLAUDIO', 'ALEJANDRO', 'CABRERA', 'MARTÍNEZ', 'claudio.cabreram@sansano.usm.cl', '+56979287465'),
+(1, '19598102', 'admin', 1, 3, '19.598.102-7', 'CLAUDIO', 'ALEJANDRO', 'CABRERA', 'MARTÍNEZ', 'claudio_krieger@hotmail.com', '+56979287465'),
 (2, '159', '159', 2, 1, '11.111.111-1', 'AAAA', 'BBBBB', 'CCCCC', 'DDDD', 'ABCD@ABCD.COM', '+56900000000'),
-(3, 'super', 'super', 2, 0, '00.000.000-0', 'SUPERVISOR', 'SUPERVISOR', 'SUPERVISOR', 'SUPERVISOR', 'supervisor@a.aa', '+56911111111');
+(3, 'super', 'super', 2, 0, '00.000.000-0', 'SUPERVISOR', 'SUPERVISOR', 'SUPERVISOR', 'SUPERVISOR', 'supervisor@a.aa', '+56911111111'),
+(4, 'asa', 'asdsad', 2, 3, 'asd', 'asd', NULL, 'asd', 'asd', 'asdasdasds@a.com', NULL),
+(5, '1592', '1592', 2, 1, '11.111.111-2', 'AAAA', 'BBBBB', 'CCCCC', 'DDDD', 'ABCD@ABCD2.COM', '+56900000000');
 
 --
 -- Índices para tablas volcadas
@@ -186,7 +188,7 @@ ALTER TABLE `tipo_de_usuario`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
