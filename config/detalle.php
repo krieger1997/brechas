@@ -79,62 +79,101 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                         ';
                 echo '<div class="form-group">
                             <label for="txtImagen">Imagen</label>';
+                echo "<script>var borrar = 0;</script>";
                 if ($imagen != ''){
-                    echo'<input type="file"  name="txtImagen" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file " id="txtImagen" style="display:none;">';                       
+                    echo'<input type="file"  name="txtImagen2" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file " id="txtImagen2" style="display:none;">';                       
                     echo'<button type="button" class="btn btn-light" onclick="borra_img();" id="btn_imagen"><img src="../subidas/'.$imagen.'"  class="img-thumbnail" alt="Responsive image" id="img1"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
                   </svg></button>';
                     echo '<script>
+                        //var borrar = 0;
                         function borra_img(){
-                            
                             var r = confirm("¿Desea eliminar esta imagen?");
                             if (r == true) {
-                                $("#txtImagen").show();
+                                $("#txtImagen2").show();
                                 $("#btn_imagen").hide();
+                                borrar = 1;
                             } else {
-                                
+                                borrar = 0;
                             } 
                         }                        
-                        
                         </script>';
-                    echo "<script>
-                            function edita_brecha(titulo, descripcion, fecha)
-                            {
-                            //var area = ".$area.";
-                            var formData = new FormData();
-                            formData.append('titulo', titulo);
-                            formData.append('descripcion',descripcion);
-                            formData.append('fecha',fecha);
-                            //formData.append('area',area);
-
-                            //formData.append('imagen',imagen);
-                            var id_brecha = ".$id_brecha.";
-                                formData.append('brecha',id_brecha);
-
-
-                                    $.ajax({
-                                            url: 'edita_brecha.php',
-                                            type: 'POST',
-                                            data: formData,
-                                            contentType: false,
-                                            processData: false,
-                                            success: function(resp){
-                                                    //$('#contenido').html(resp);
-                                                    alert(resp);
-                                                    $('body').removeClass('modal-open');
-                                                    $('.modal-backdrop').remove();
-                                                    //$('#resumen').load(' #resumen');
-                                                     location.reload();
-                                            }
-                                    });
-                            }
-
-
-                            </script>";
+//                    echo "<script>
+//                            function edita_brecha(titulo, descripcion, fecha, imagen)
+//                            {
+//                            //var area = ".$area.";
+//                            var formData = new FormData();
+//                            formData.append('titulo', titulo);
+//                            formData.append('descripcion',descripcion);
+//                            formData.append('fecha',fecha);
+//                            //formData.append('area',area);
+//
+//                            //formData.append('imagen',imagen);
+//                            var id_brecha = ".$id_brecha.";
+//                                formData.append('brecha',id_brecha);
+//
+//
+//                                    $.ajax({
+//                                            url: 'edita_brecha.php',
+//                                            type: 'POST',
+//                                            data: formData,
+//                                            contentType: false,
+//                                            processData: false,
+//                                            success: function(resp){
+//                                                    //$('#contenido').html(resp);
+//                                                    alert(resp);
+//                                                    $('body').removeClass('modal-open');
+//                                                    $('.modal-backdrop').remove();
+//                                                    //$('#resumen').load(' #resumen');
+//                                                     location.reload();
+//                                            }
+//                                    });
+//                            }
+//
+//
+//                            </script>";
                 }else{
-                       echo'<input type="file"  name="txtImagen" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file" id="txtImagen" >';   
-                       echo "<script>
-                                function edita_brecha(titulo, descripcion, fecha)
+                       echo'<input type="file"  name="txtImagen2" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file" id="txtImagen2" >';   
+//                       echo "<script>
+//                                function edita_brecha(titulo, descripcion, fecha, imagen)
+//                                {
+//                                //var area = ".$area.";
+//                                var formData = new FormData();
+//                                formData.append('titulo', titulo);
+//                                formData.append('descripcion',descripcion);
+//                                formData.append('fecha',fecha);
+//                                //formData.append('area',area);
+//
+//                                //formData.append('imagen',imagen);
+//                                var id_brecha = ".$id_brecha.";
+//                                    formData.append('brecha',id_brecha);
+//
+//
+//                                        $.ajax({
+//                                                url: 'edita_brecha.php',
+//                                                type: 'POST',
+//                                                data: formData,
+//                                                contentType: false,
+//                                                processData: false,
+//                                                success: function(resp){
+//                                                        //$('#contenido').html(resp);
+//                                                        alert(resp);
+//                                                        $('body').removeClass('modal-open');
+//                                                        $('.modal-backdrop').remove();
+//                                                        //$('#resumen').load(' #resumen');
+//                                                         location.reload();
+//                                                }
+//                                        });
+//                                }
+//
+//
+//                                </script>";
+                }
+                echo ' </div>';
+                 
+                
+                echo "<script>
+                                function edita_brecha(titulo, descripcion, fecha, imagen)
                                 {
                                 //var area = ".$area.";
                                 var formData = new FormData();
@@ -142,10 +181,12 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                 formData.append('descripcion',descripcion);
                                 formData.append('fecha',fecha);
                                 //formData.append('area',area);
-
-                                //formData.append('imagen',imagen);
+                                
+                                formData.append('imagen',imagen);
                                 var id_brecha = ".$id_brecha.";
                                     formData.append('brecha',id_brecha);
+                                    formData.append('borrar',borrar)
+                                    
 
 
                                         $.ajax({
@@ -167,21 +208,21 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
 
                                 </script>";
-                }
-                echo ' </div>';
-                 if ($imagen != ''){
-                     
-                 }else{
+                
+                
+                
+                
                      echo ' </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" >CERRAR</button>
-                  <button type="button" class="btn btn-primary" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val()  )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
                   </form>
                 </div>
               </div>
             </div>
             </div>';
-                 }
+                 
+                 
                 
                 
 
@@ -236,7 +277,79 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
             }
             
             if ($_SESSION['area'] == $area_brechas OR $_SESSION['tipo'] == 1){
-                echo '<button type="button" class="btn btn-warning btn-lg btn-block mt-2 font-weight-bold">Cerrar brecha</button>';
+                echo '<button type="button" class="btn btn-warning btn-lg btn-block mt-2 font-weight-bold" data-toggle="modal" data-target="#cierraBrecha">Cerrar brecha</button>';
+                echo '<div class="modal fade" id="cierraBrecha" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalCenterTitle">Cierre de brecha</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="return false" onsubmit="return false" method="POST" >
+                                    <div class="form-group">
+                                    <label for="txtTitulo">Título</label>
+                                    <input type="text"  name="txtTitulo"  class="form-control" required id="txtTitulo" placeholder="Título">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtTitulo">Descripción</label>
+                                    <textarea rows="5" cols="10"  name="txtDescripcion" required class="form-control" id="txtDescripcion" placeholder="Descripción"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtTitulo">Fecha</label>
+                                    <input type="date"  name="txtFecha"  class="form-control" required id="txtFecha" value="'.date("Y-m-d").'">
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtImagen">Imagen</label>
+                                    <input type="file"  name="txtImagen" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file" id="txtImagen" >
+                                </div>
+                                      
+                                    
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                              <button type="button" class="btn btn-primary" onclick="cierra_brecha($(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() , $(\'#txtImagen\')[0].files[0])">GUARDAR</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        </div>';
+                echo "<script>
+                        function cierra_brecha(titulo, descripcion, fecha, imagen)
+                        {
+                        var id_brecha = ".$id_brecha.";
+                        var formData = new FormData();
+                        formData.append('titulo', titulo);
+                        formData.append('descripcion',descripcion);
+                        formData.append('fecha',fecha);
+                        
+                        formData.append('imagen',imagen);
+                        formData.append('brecha',id_brecha);
+
+
+                                $.ajax({
+                                        url: 'cierra_brecha.php',
+                                        type: 'POST',
+                                        data: formData,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function(resp){
+                                                //$('#contenido').html(resp);
+                                                alert(resp);
+                                                //$('body').removeClass('modal-open');
+                                               // $('.modal-backdrop').remove();
+                                                //$('#resumen').load(' #resumen');
+                                                location.reload();
+                                        }
+                                });
+                        }
+                        </script>";
+                
+                
+                
+                
             }
             
             if ($_SESSION['area'] == '0' or $_SESSION['tipo'] == 1 ){//COMENTARIOS
