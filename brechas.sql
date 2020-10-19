@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 15-10-2020 a las 06:00:53
+-- Tiempo de generación: 19-10-2020 a las 05:19:45
 -- Versión del servidor: 8.0.17
 -- Versión de PHP: 7.3.10
 
@@ -68,15 +68,15 @@ CREATE TABLE `brechas` (
 --
 
 INSERT INTO `brechas` (`id`, `area`, `fecha`, `titulo`, `descripcion`, `autor`, `imagen`, `estado`) VALUES
-(2, 1, '2020-09-26', 'sadassda', 'sadasdas', 1, NULL, 'PENDIENTE'),
+(2, 1, '2020-09-26', 'sadassda', 'sadasdas', 1, 'L1e_o1Ep.jpg', 'PENDIENTE'),
 (3, 6, '2020-09-26', 'NUEVA BRECHA FORMULARIO', 'saddsasda aaaaaaaaaaaaa asda advvvvvvvvvvvvvvvvvvvvvv', 2, NULL, 'ABIERTA'),
 (4, 5, '2020-09-26', 'sadsasdasdasdaasdsdadsaasdads', 'sasadsdasaddasasddasadsdassdasda', 1, NULL, 'ABIERTA'),
 (5, 4, '2020-09-26', 'kdsfjasñdlk', 'ksdñjflkjañsdlfk', 1, NULL, 'ABIERTA'),
 (6, 4, '2020-09-26', 'assasdasd', 'asdsadasdasda', 1, NULL, 'ABIERTA'),
 (7, 1, '2020-09-26', 'aasdasdas', 'sadasdasda', 1, NULL, 'PENDIENTE'),
-(8, 1, '2020-09-26', 'asdas', 'asdasdsd', 1, NULL, 'ABIERTA'),
+(8, 1, '2020-09-26', 'asdas', 'asdasdsd', 1, NULL, 'PENDIENTE'),
 (9, 1, '2020-10-02', 'asdsa', 'sadssad', 1, NULL, 'ABIERTA'),
-(10, 1, '2020-10-02', 'saddsa', 'dsas', 1, 'velocidad.png', 'ABIERTA'),
+(10, 1, '2020-10-02', 'saddsa', 'dsas', 1, 'velocidad.png', 'CERRADA'),
 (11, 1, '2020-10-02', 'asdsa', 'saddsadsa', 1, 'mas.png', 'ABIERTA'),
 (12, 2, '2020-10-06', 'TADASDASDASD', 'ssdmfasdljfasdñjfas ldkjhasldkj fhasdljkf halskj fahsljkfd h lf sjdfhlaskjdfas df', 1, 'L1e_o1Ep.jpg', 'ABIERTA'),
 (13, 3, '2020-10-09', 'NUEVA BRECHA FORMULARIO editado x3', 'asdasa asdas das ads adsa dsasda dsadsds editadox3', 1, 'llama.png', 'ABIERTA'),
@@ -106,7 +106,9 @@ CREATE TABLE `cierres` (
 
 INSERT INTO `cierres` (`id`, `id_brecha`, `fecha`, `titulo`, `descripcion`, `autor`, `imagen`) VALUES
 (1, 2, '2020-10-15', 'PRUEBA CIERRE1', 'PRUEBA CIERRE1PRUEBA CIERRE1', 2, '102649.png'),
-(2, 7, '2020-10-15', 'location.reload();', 'location.reload();location.reload();', 2, '57164.png');
+(2, 7, '2020-10-15', 'location.reload();', 'location.reload();location.reload();', 2, '57164.png'),
+(3, 8, '2020-10-18', 'wqewewq', 'weqwwqewqeqeqw', 2, 'llama.png'),
+(4, 10, '2020-10-18', 'vvvvvvvv', 'vvvvvvvvvvvvvvvvv', 2, 'L1e_o1Ep.jpg');
 
 -- --------------------------------------------------------
 
@@ -214,7 +216,7 @@ ALTER TABLE `brechas`
 -- AUTO_INCREMENT de la tabla `cierres`
 --
 ALTER TABLE `cierres`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tipo_de_usuario`

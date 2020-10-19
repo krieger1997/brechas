@@ -9,13 +9,15 @@
             <file>file:/C:/AppServ/www/brechas/config/edita_brecha.php</file>
             <file>file:/C:/AppServ/www/brechas/config/crea_brecha.php</file>
             <file>file:/C:/AppServ/www/brechas/config/configuracionIndex.php</file>
-            <file>file:/C:/AppServ/www/brechas/config/lista.php</file>
             <file>file:/C:/AppServ/www/brechas/config/detalle.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/lista.php</file>
             <file>file:/C:/AppServ/www/brechas/config/salir.php</file>
             <file>file:/C:/AppServ/www/brechas/config/resumen.php</file>
             <file>file:/C:/AppServ/www/brechas/css/main.css</file>
             <file>file:/C:/AppServ/www/brechas/index.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/cierra_brecha.php</file>
             <file>file:/C:/AppServ/www/brechas/config/conecta.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/confirma_cierre.php</file>
         </group>
     </open-files>
 </project-private>

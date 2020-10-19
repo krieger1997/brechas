@@ -12,8 +12,16 @@ function head($titulo){
     <script src='https://code.jquery.com/jquery-3.5.1.min.js' integrity='sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=' crossorigin='anonymous'></script>
     <title>".$titulo."</title>
 </head>
-  <body>
-       <div class='mb-3 salir' ><button type='button' class='btn btn-outline-danger' id='cerrar' onclick=\"window.location.href='salir.php'\">CERRAR SESIÓN</button></div>";
+  <body>";  
+      echo '<div clasS="d-flex justify-content-between bd-highlight mb-3"> 
+    <div class="p-2 bd-highlight "></div> 
+    <div class="p-2 bd-highlight"></div> 
+    <div class="p-2 bd-highlight salir"><button type="button" class="btn btn-outline-danger" id="cerrar" onclick=\'window.location.href="salir.php"\'>CERRAR SESIÓN</button></div> 
+    </div>';
+//       <div class='mb-3 salir' ><button type='button' class='btn btn-outline-danger' id='cerrar' onclick=\"window.location.href='salir.php'\">CERRAR SESIÓN</button></div>
+//       <div class='mb-3 ' style='display: none;    margin-right: 90%;    margin-top: 0.5%;' ><button type='button' class='btn btn-outline-danger' id='cerrar' onclick=\"window.location.href='salir.php'\">CERRAR SESIÓN</button></div>";";
+    
+    
     
 }
 
