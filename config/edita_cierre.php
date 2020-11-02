@@ -4,13 +4,14 @@ $conexion = conecta();
 session_name('brechas');
 session_start();
 
-//$area=$_POST['area'];
+
 $fecha=$_POST['fecha'];
 $descripcion=$_POST['descripcion'];
 $titulo=$_POST['titulo'];
-$brecha = $_POST['brecha'];
+//$brecha = $_POST['brecha'];
+$cierre = $_POST['id_cierre'];
 $borrar= $_POST['borrar'];
-//$autor =$_SESSION['id'];
+
 
 $nombre_img = $_FILES['imagen']['name'];
 $tipo = $_FILES['imagen']['type'];
@@ -23,16 +24,16 @@ if($borrar == 0){
     if( isset($_FILES['imagen']) && $nombre_img == !NULL ){ 
         if($_FILES['imagen']['type'] == "image/gif" || $_FILES['imagen']['type'] == "image/jpg"  || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png" ){
         //ruta donde se guardaran las fotos
-        $directorio = $_SERVER['DOCUMENT_ROOT']."/brechas/subidas/";
-        //$directorio = $_SERVER['DOCUMENT_ROOT']."/subidas/";//ESTE AL SUBIR
+        $directorio = $_SERVER['DOCUMENT_ROOT']."/brechas/cierres/";
+        //$directorio = $_SERVER['DOCUMENT_ROOT']."/cierres/";//ESTE AL SUBIR
         //echo $directorio;
         if(move_uploaded_file($_FILES['imagen']['tmp_name'],$directorio.$nombre_img )){
         
             try {
-                $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = '$nombre_img' WHERE id = $brecha";
+                $sql="UPDATE `cierres` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = '$nombre_img' WHERE id = $cierre";
                 
                 if(mysqli_query($conexion,$sql)){
-                    $resultado ="¡Brecha editada exitosamente!";
+                    $resultado ="¡Cierre editado exitosamente!";
                 }else{
                     $resultado = "Error: " . $sql . "<br>" . mysqli_error($conexion);
 
@@ -51,9 +52,9 @@ if($borrar == 0){
         
     }else{
         try {
-            $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha'  WHERE id = $brecha";
+            $sql="UPDATE `cierres` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha'  WHERE id = $cierre";
             if(mysqli_query($conexion,$sql)){
-                $resultado ="¡Brecha editada exitosamente sin imagen!";
+                $resultado ="¡Cierre editado exitosamente sin imagen!";
             }else{
                 $resultado = "Error: " . $sql . "<br>" . mysqli_error($conexion);
             }
@@ -68,23 +69,23 @@ if($borrar == 0){
     if( isset($_FILES['imagen']) && $nombre_img == !NULL ){ 
         if($_FILES['imagen']['type'] == "image/gif" || $_FILES['imagen']['type'] == "image/jpg"  || $_FILES['imagen']['type'] == "image/jpeg" || $_FILES['imagen']['type'] == "image/png" ){
             try {
-                $sql1= "SELECT `imagen` FROM `brechas` WHERE id = $brecha";
+                $sql1= "SELECT `imagen` FROM `cierres` WHERE id = $cierre";
                 $result1 = $conexion -> query($sql1);
                 if($result1->num_rows > 0){
                     if($row1 = $result1->fetch_array(MYSQLI_ASSOC)){
                         $img_eliminar=$row1['imagen'];
-                        $directorio2 = $_SERVER['DOCUMENT_ROOT']."/brechas/subidas/".$img_eliminar;
-                        //$directorio2 = $_SERVER['DOCUMENT_ROOT']."/subidas/".$img_eliminar;//ESTE AL SUBIR
+                        $directorio2 = $_SERVER['DOCUMENT_ROOT']."/brechas/cierres/".$img_eliminar;
+                       // $directorio2 = $_SERVER['DOCUMENT_ROOT']."/cierres/".$img_eliminar;//ESTE AL SUBIR
                         
-                        $directorio = $_SERVER['DOCUMENT_ROOT']."/brechas/subidas/";
-                        //$directorio = $_SERVER['DOCUMENT_ROOT']."/subidas/";//ESTE AL SUBIR
-                        //echo $directorio;
+                        $directorio = $_SERVER['DOCUMENT_ROOT']."/brechas/cierres/";
+                       // $directorio = $_SERVER['DOCUMENT_ROOT']."/cierres/";//ESTE AL SUBIR
+                        
                         if(move_uploaded_file($_FILES['imagen']['tmp_name'],$directorio.$nombre_img )){
 
-                            $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = '$nombre_img' WHERE id = $brecha";
+                            $sql="UPDATE `cierres` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = '$nombre_img' WHERE id = $cierre";
 
                             if(mysqli_query($conexion,$sql)){
-                                $resultado ="¡Brecha editada exitosamente!";
+                                $resultado ="¡Cierre editado exitosamente!";
                                 unlink($directorio2);
                             }else{
                                 $resultado = "Error: " . $sql . "<br>" . mysqli_error($conexion);
@@ -112,16 +113,15 @@ if($borrar == 0){
         }
     }else{//UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', `imagen` = NULL WHERE `brechas`.`id` = $brecha; 
         try{
-            $sql1= "SELECT `imagen` FROM `brechas` WHERE id = $brecha";
+            $sql1= "SELECT `imagen` FROM `cierres` WHERE id = $cierre";
                 $result1 = $conexion -> query($sql1);
                 if($result1->num_rows > 0){
                     if($row1 = $result1->fetch_array(MYSQLI_ASSOC)){
                         $img_eliminar=$row1['imagen'];
-                        $directorio2 = $_SERVER['DOCUMENT_ROOT']."/brechas/subidas/".$img_eliminar;
-                        //$directorio2 = $_SERVER['DOCUMENT_ROOT']."/subidas/".$img_eliminar;//ESTE AL SUBIR
-                        $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = NULL WHERE id = $brecha";
+                        $directorio2 = $_SERVER['DOCUMENT_ROOT']."/brechas/cierres/".$img_eliminar;
+                        $sql="UPDATE `cierres` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = NULL WHERE id = $cierre";
                         if(mysqli_query($conexion,$sql)){
-                            $resultado ="¡Brecha editada exitosamente!";
+                            $resultado ="¡Cierre editado exitosamente!";
                             unlink($directorio2);
                         }else{
                             $resultado = "Error: " . $sql . "<br>" . mysqli_error($conexion);

@@ -1,28 +1,26 @@
-pueden editar brechas personas de la misma area que levanto la brecha o el administrador
+pueden editar brechas personas de la misma area que levanto la brecha o el administrador LISTO
 
-puede cerrar una brecha (pasar a pendiente) personas de la misma area a la que se le levanto la brecha y admin
+puede cerrar una brecha (pasar a pendiente) personas de la misma area a la que se le levanto la brecha y admin LISTO
 
-puede editar cierre de brecha(pendiente) personas de la misma area a la que se le levanto la brecha y admin
-
-
+puede editar cierre de brecha(pendiente) personas de la misma area a la que se le levanto la brecha y admin LISTO
 
 -------
 
-pasar de pendiente a cerrado solo administradores
+pasar de pendiente a cerrado solo administradores LISTO
 
-eliminar brechas en cualquier estado solo admin
+eliminar brechas en cualquier estado solo admin LISTO
 
-ADMIN puede CRUD areas, usuarios
-
-
+>ADMIN puede CRUD areas, usuarios
 
 
 
-crear area 0 supervision, que no aparezca en menú 
-puede ver, como todos
-puede abrir brechas
-funciona como admin pero no puede cerrar ni modificar
-admin y supervisor -> puede comentar brechas abiertas, pendientes y cerradas (notif por correo a area autora y/o area receptora y/o admin)
+
+
+crear area 0 supervision, que no aparezca en menú LISTO
+puede ver, como todos LISTO
+puede abrir brechas LISTO
+funciona como admin pero no puede cerrar ni modificar 
+admin y supervisor -> puede comentar brechas abiertas, pendientes y cerradas (notif por correo a area autora y/o area receptora y/o admin) LISTO
 
 
 
@@ -31,7 +29,7 @@ admin y supervisor -> puede comentar brechas abiertas, pendientes y cerradas (no
 persona1 GPDO: abre brecha a SSOMA
 le llega correo a personas de area ssoma  y al admin con brecha
 persona1 SSOMA: cierra brecha (pasa a pendiente)
-le llega correo a admin con nueva brecha pendiente
+le llega correo a admin con nueva brecha pendiente 
 admin: revisa cierre y brecha y pide modificaciones a area de ssoma
 persona2 ssoma:modifica cierre de brecha (pendiente)
 admin: aprueba cierre de brecha y cambia estado a cerrado

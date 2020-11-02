@@ -17,6 +17,11 @@ head("Brechas");
         echo "<script>
             $('.salir').show();
                 </script>";
+        if ($_SESSION['tipo'] == 1){
+            echo "<script>
+            $('.admin').show();
+                </script>";
+        }
     }else{
         echo "<div class='logeo shadow-lg p-3 mb-5  rounded ' id='logeo'>
                 <h1 class='font-weight-bold text-center'>BRECHAS</h1>
@@ -55,6 +60,21 @@ head("Brechas");
         </div>
     
     
+<script>
+var loading = $("#loading").hide();
+$(document)
+  .ajaxStart(function () {
+    loading.show();
+  })
+  .ajaxStop(function () {
+    loading.hide();
+  });
+
+</script>
+
+
+
+
 
     
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

@@ -61,7 +61,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
         $result = $conexion -> query($sql);
         if($result->num_rows > 0){
             while($row = $result->fetch_array(MYSQLI_ASSOC)){
-                $area = $row['area'];
+                $area = utf8_encode($row['area']);
                 
                 $titulo = $row['titulo'];
                 $descripcion = $row['descripcion'];
@@ -107,11 +107,13 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
     <h3>Mensaje automático, no responder.</h3>
     </body>
     </html>';
-    $encabezado = "From: Sistema Gestión de Brechas";
+    $encabezado= 'MIME-Version: 1.0' . "\r\n";
+$encabezado .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+$encabezado .= "From: Sistema Gestión de Brechas";
     if(mail($para, $asunto, $contenido, $encabezado)){
         echo "Comentario enviado exitosamente";
     }else{
-        echo "Ha ocurrido un error. Intentelo nuevamente";
+        echo "Ha ocurrido un error. Intentelo nuevamente.";
     }
     
 }else{

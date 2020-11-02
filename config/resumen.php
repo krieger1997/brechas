@@ -8,7 +8,7 @@ if(isset($_POST['area'])){
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
-            $area_titulo = $row['n'];
+            $area_titulo = utf8_encode($row['n']);
         }
     }
     $sql="SELECT COUNT(*) as ab FROM brechas where `estado` = 'ABIERTA'  and area = $area";
@@ -37,18 +37,19 @@ if(isset($_POST['area'])){
     echo"<h1 class='font-weight-bold text-center'>".$area_titulo."</h1>";
     echo '<div class="row row-cols-7" id="botones">';
         echo '<div class="col"></div>';
-        echo '<div class="col"><button type="button" class="btn btn-danger" id="ABIERTA">Brechas abiertas<br><span class="badge badge-light">'.$abierto.'</span></button></div>';
+        echo '<div class="col"><button type="button" class="btn btn-danger a" id="ABIERTA">Brechas abiertas<br><span class="badge badge-light">'.$abierto.'</span></button></div>';
         echo '<div class="col"></div>';
-        echo '<div class="col"><button type="button" class="btn btn-warning" id="PENDIENTE">Brechas pendientes<br><span class="badge badge-light">'.$pendiente.'</span></button></div>';
+        echo '<div class="col"><button type="button" class="btn btn-warning a" id="PENDIENTE">Brechas pendientes<br><span class="badge badge-light">'.$pendiente.'</span></button></div>';
         echo '<div class="col"></div>';
-        echo '<div class="col"><button type="button" class="btn btn-success" id="CERRADA">Brechas cerradas<br><span class="badge badge-light">'.$cerrado.'</span></button></div>';
+        echo '<div class="col"><button type="button" class="btn btn-success a" id="CERRADA">Brechas cerradas<br><span class="badge badge-light">'.$cerrado.'</span></button></div>';
         echo '<div class="col"></div>';
+        
     echo '</div>';
     
     echo"
 <script>
     $(document).ready(function(){
-      $('body #botones').on('click', 'button', function(){
+      $('body #botones ').on('click', 'button', function(){
         var estado = $(this).attr('id');
         var area =".$area.";
         
@@ -74,8 +75,8 @@ if(isset($_POST['area'])){
 
     
     //MODAL
-    
-    echo '<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+    echo '<button type="button" class="btn btn-primary btn-lg btn-block mt-5" data-toggle="modal" data-target="#modalCrea" id="crea">Crear brecha</button>';
+    echo '<div class="modal fade" id="modalCrea" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
@@ -105,18 +106,25 @@ if(isset($_POST['area'])){
                     
                 </div>
                 <div class="modal-footer">
+                    
+                    <div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                  <button type="button" class="btn btn-primary" onclick="crea_brecha( $(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() , $(\'#txtImagen\')[0].files[0] )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" id="btn" onclick="crea_brecha( $(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() , $(\'#txtImagen\')[0].files[0] )">GUARDAR</button>
                   </form>
                 </div>
               </div>
             </div>
             </div>';
-    echo '<button type="button" class="btn btn-primary btn-lg btn-block mt-5" data-toggle="modal" data-target="#exampleModalCenter" id="crea">Crear brecha</button>';
+    
     
     echo "<script>
 	function crea_brecha(titulo, descripcion, fecha, imagen)
 	{
+        $('#loading').show();$('#btn').prop('disabled', true);
         var area = ".$area.";
         var formData = new FormData();
         formData.append('titulo', titulo);
@@ -124,6 +132,7 @@ if(isset($_POST['area'])){
         formData.append('fecha',fecha);
         formData.append('area',area);
         formData.append('imagen',imagen);
+        
         
         
 		$.ajax({
@@ -134,10 +143,12 @@ if(isset($_POST['area'])){
                         processData: false,
 			success: function(resp){
 				//$('#contenido').html(resp);
+                                $('#loading').hide(); $('#btn').prop('disabled', false);
                                 alert(resp);
                                 $('body').removeClass('modal-open');
                                 $('.modal-backdrop').remove();
                                 $('#resumen').load(' #resumen');
+                                
 			}
 		});
 	}

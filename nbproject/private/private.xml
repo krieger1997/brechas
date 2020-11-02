@@ -3,21 +3,32 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/AppServ/www/brechas/config/configuracionPaginas.php</file>
             <file>file:/C:/AppServ/www/brechas/config/envia_comentario.php</file>
             <file>file:/C:/AppServ/www/brechas/config/valida.php</file>
             <file>file:/C:/AppServ/www/brechas/config/edita_brecha.php</file>
             <file>file:/C:/AppServ/www/brechas/config/crea_brecha.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/lector.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/CRUD_usuarios.php</file>
             <file>file:/C:/AppServ/www/brechas/config/configuracionIndex.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/CRUD_areas.php</file>
             <file>file:/C:/AppServ/www/brechas/config/detalle.php</file>
+            <file>file:/C:/AppServ/www/brechas/css/main.css</file>
+            <file>file:/C:/AppServ/www/brechas/config/conecta.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/edita_cierre.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/edita_usuario.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/confirma_cierre.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/configuracionPaginas.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/elimina_usuario.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/elimina_area.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/edita_area.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/lector2.php</file>
             <file>file:/C:/AppServ/www/brechas/config/lista.php</file>
             <file>file:/C:/AppServ/www/brechas/config/salir.php</file>
             <file>file:/C:/AppServ/www/brechas/config/resumen.php</file>
-            <file>file:/C:/AppServ/www/brechas/css/main.css</file>
             <file>file:/C:/AppServ/www/brechas/index.php</file>
             <file>file:/C:/AppServ/www/brechas/config/cierra_brecha.php</file>
-            <file>file:/C:/AppServ/www/brechas/config/conecta.php</file>
-            <file>file:/C:/AppServ/www/brechas/config/confirma_cierre.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/agrega_usuario.php</file>
+            <file>file:/C:/AppServ/www/brechas/config/agrega_area.php</file>
         </group>
     </open-files>
 </project-private>

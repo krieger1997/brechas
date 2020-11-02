@@ -13,11 +13,41 @@ function head($titulo){
     <title>".$titulo."</title>
 </head>
   <body>";
-     echo '<div clasS="d-flex justify-content-between bd-highlight mb-3"> 
-    <div class="p-2 bd-highlight "></div> 
+    echo '<div clasS="d-flex justify-content-between bd-highlight mb-3"> 
+    <div class="p-2 bd-highlight ">';
+
+    echo '<div class="dropdown admin" style="display:none;">
+  <a class="btn btn-outline-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    ADMINISTRAR
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a class="dropdown-item" href="config/CRUD_areas.php">Areas</a>
+    <a class="dropdown-item" href="config/CRUD_usuarios.php">Usuarios</a>
+
+  </div>
+</div>';
+    
+    
+    echo '</div> 
     <div class="p-2 bd-highlight"></div> 
-    <div class="p-2 bd-highlight salir"><button type="button" class="btn btn-outline-danger" id="cerrar" onclick=\'window.location.href="salir.php"\'>CERRAR SESIÓN</button></div> 
+    <div class="p-2 bd-highlight "><button type="button" class="btn btn-outline-danger salir" id="cerrar" onclick=\'window.location.href="config/salir.php"\'>CERRAR SESIÓN</button></div> 
     </div>';
+    echo '<script>
+$(document).ready(function() {
+$(".modal-footer").prepend(\'<div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div> \');
+});
+
+
+   </script>';
+    
+    
+    
+     
     //   <div class='salir' ><button type='button' class='btn btn-outline-danger' id='cerrar' onclick=\"window.location.href='config/salir.php'\">CERRAR SESIÓN</button></div>";
     
 }

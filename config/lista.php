@@ -12,11 +12,12 @@ session_start();
 if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area']) && isset($_GET['estado']) && isset($_GET['area'])  ){
     
     //boton para volver a mostrar lista, inicia invisible
-    echo '<button type="button" class="btn btn-outline-dark align-middle ml-4 float-left" onclick="javascript:location.href=`../index.php`"  >
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-square-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm9.5 8.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
-                </svg>Volver
-        </button>';
+//    echo '<button type="button" class="btn btn-outline-dark align-middle ml-4 float-left" onclick="javascript:location.href=`../index.php`"  >
+//                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-square-fill mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+//                    <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm9.5 8.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"/>
+//                </svg>Volver
+//        </button>';
+    
     echo '<button type="button" onclick="muestra_lista();" id="muestra_brecha" class="btn btn-outline-light float-left ml-5">Mostrar brechas</button>';
     
     echo '<div class="container" >';
@@ -29,7 +30,9 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
-            echo "<h2 class='mb-3 text-center'>Brechas <SPAN CLASS='font-weight-bold'> ".$estado."S</SPAN> en ".$row['NOMBRE_AREA']."</h2>";
+            echo"<div class='m-auto' style='width:80%;'>";
+            echo "<h2 class='mb-3 text-center'>Brechas <SPAN CLASS='font-weight-bold'> ".$estado."S</SPAN> en ".utf8_encode($row['NOMBRE_AREA'])."</h2>";
+            echo "</div>";
         }
     }
     
@@ -45,7 +48,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
     }else{
         echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>¡Vaya!</strong> No hay nada aquí.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="x"  onclick="vuelve();">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close" id="x"  onclick="javascript:location.href=`../index.php`">
               <span aria-hidden="true">&times;</span>
             </button>
             <script>function vuelve(){window.history.back();

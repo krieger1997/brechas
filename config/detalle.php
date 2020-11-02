@@ -40,11 +40,43 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
 
 
-                echo'<div class= "row"> <div class="col"></div>
+                echo'<div class= "row"> <div class="col">';
+                if ($_SESSION['tipo'] == 1){
+                    echo '<button onclick="elimina_brecha()" type="button" title="Eliminar brecha" class="btn btn-outline-danger float-left"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                     </svg>Eliminar</button>';
+                    echo "<script>
+                        function elimina_brecha(titulo, descripcion, fecha, imagen)
+                                   {
+                                   var pregunta = confirm('Si existen cierres para esta brecha también se elimnarán');
+                                   if (pregunta == true) {
+                                       //var formData = new FormData();
+                                       var id_brecha = ".$id_brecha.";
+                                       //formData.append('id_brecha',id_brecha);
+
+                                           $.ajax({
+                                                   url: 'elimina_brecha.php',
+                                                   type: 'POST',
+                                                   data: 'id_brecha='+id_brecha,
+                                                   success: function(resp){
+                                                           alert(resp);
+                                                           location.reload();
+                                                   }
+                                           });
+                                   } 
+
+
+
+                                   }
+                     </script>";
+                }
+             
+                echo '</div>
                 <div class="col-8">  ';
                 echo "<h2 class='text-center font-weight-bold '>" . $titulo . "</H2>";
                 echo '</div>      <div class="col">';
 
+             
              if ($_SESSION['area'] == $area_autor OR $_SESSION['tipo'] == 1){
                 echo '<button type="button"  class="btn btn-outline-light float-right  font-weight-bold" id="editar" data-toggle="modal" data-target="#modalEdita">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -176,6 +208,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                 function edita_brecha(titulo, descripcion, fecha, imagen)
                                 {
                                 //var area = ".$area.";
+                                    $('#loading').show();$('#btn').prop('disabled', true);
                                 var formData = new FormData();
                                 formData.append('titulo', titulo);
                                 formData.append('descripcion',descripcion);
@@ -185,7 +218,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                 formData.append('imagen',imagen);
                                 var id_brecha = ".$id_brecha.";
                                     formData.append('brecha',id_brecha);
-                                    formData.append('borrar',borrar)
+                                    formData.append('borrar',borrar);
 
 
 
@@ -196,6 +229,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                                 contentType: false,
                                                 processData: false,
                                                 success: function(resp){
+                                                    $('#loading').hide(); $('#btn').prop('disabled', false);
                                                         //$('#contenido').html(resp);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
@@ -214,8 +248,13 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                      echo ' </div>
                 <div class="modal-footer">
+                <div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" >CERRAR</button>
-                  <button type="button" class="btn btn-primary" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" id="btn" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
                   </form>
                 </div>
               </div>
@@ -316,8 +355,13 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                             </div>
                             <div class="modal-footer">
+                            <div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                              <button type="button" class="btn btn-primary" onclick="cierra_brecha($(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() , $(\'#txtImagen\')[0].files[0])">GUARDAR</button>
+                              <button type="button" class="btn btn-primary" id="btn" onclick="cierra_brecha($(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() , $(\'#txtImagen\')[0].files[0])">GUARDAR</button>
                               </form>
                             </div>
                           </div>
@@ -326,6 +370,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 echo "<script>
                         function cierra_brecha(titulo, descripcion, fecha, imagen)
                         {
+                        $('#loading').show();$('#btn').prop('disabled', true);
+
                         var id_brecha = ".$id_brecha.";
                         var formData = new FormData();
                         formData.append('titulo', titulo);
@@ -343,6 +389,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                         contentType: false,
                                         processData: false,
                                         success: function(resp){
+                                        $('#loading').hide(); $('#btn').prop('disabled', false);
                                                 //$('#contenido').html(resp);
                                                 alert(resp);
                                                 //$('body').removeClass('modal-open');
@@ -392,8 +439,13 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                             </div>
                             <div class="modal-footer">
+                            <div class="text-center" id = "loadingCmnt1" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                              <button type="button" class="btn btn-primary" onclick="comentario( $(\'#txtComentario\').val())">GUARDAR</button>
+                              <button type="button" class="btn btn-primary" id="btnCmnt" onclick="comentario( $(\'#txtComentario\').val())">GUARDAR</button>
                               </form>
                             </div>
                           </div>
@@ -418,11 +470,13 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                                 if(admin == 1 || receptor == 1 || autor == 1){
                                      if(contenido !=''){
+                                     $('#loadingCmnt1').show();$('#btnCmnt').prop('disabled', true);
                                             $.ajax({
                                                 url: 'envia_comentario.php',
                                                 type: 'POST',
                                                 data: 'comentario='+contenido+'&admin='+admin+'&autor='+autor+'&receptor='+receptor+'&brecha='+".$id_brecha.",
                                                 success: function(resp){
+                                                        $('#loadingCmnt1').hide(); $('#btnCmnt').prop('disabled', false);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
                                                         $('body').removeClass('modal-dialog');
@@ -450,7 +504,41 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 echo '<div class="row">
                     <div class="col border-right"> ';
                 //brecha
-                echo'<div class= "row"> <div class="col"></div>
+                echo'<div class= "row"> <div class="col">';
+                if ($_SESSION['tipo'] == 1){
+                    echo '<button onclick="elimina_brecha()" type="button" title="Eliminar brecha" class="btn btn-outline-danger float-left"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                     </svg></button>';
+                    echo "<script>
+                        function elimina_brecha(titulo, descripcion, fecha, imagen)
+                                   {
+                                   var pregunta = confirm('Si existen cierres para esta brecha también se elimnarán');
+                                   if (pregunta == true) {
+                                        var pregunta2 = confirm('Esta acción no se puede deshacer.\n ¿Está segur@?');
+                                        if(pregunta2 == true){
+                                       //var formData = new FormData();
+                                       var id_brecha = ".$id_brecha.";
+                                       //formData.append('id_brecha',id_brecha);
+
+                                           $.ajax({
+                                                   url: 'elimina_brecha.php',
+                                                   type: 'POST',
+                                                   data: 'id_brecha='+id_brecha,
+                                                   success: function(resp){
+                                                           alert(resp);
+                                                           location.reload();
+                                                   }
+                                           });
+                                           }//fin pregunta 2
+                                   }//FIN IF PREGUNTA1 
+
+
+
+                                   }
+                     </script>";
+                }
+                
+                echo '</div>
                 <div class="col-8">  ';
             echo "<h2 class='text-center font-weight-bold '>".$titulo."</H2>";
             echo '</div>      <div class="col">';
@@ -460,7 +548,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
                     </svg>
-                 Editar
+                 
                 </button>';
 
                 echo '<div class="modal fade" id="modalEdita" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
@@ -585,6 +673,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 echo "<script>
                                 function edita_brecha(titulo, descripcion, fecha, imagen)
                                 {
+                                $('#loading').show();$('#btn').prop('disabled', true);
                                 //var area = ".$area.";
                                 var formData = new FormData();
                                 formData.append('titulo', titulo);
@@ -606,6 +695,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                                 contentType: false,
                                                 processData: false,
                                                 success: function(resp){
+                                                $('#loading').hide(); $('#btn').prop('disabled', false);
                                                         //$('#contenido').html(resp);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
@@ -624,8 +714,13 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                      echo ' </div>
                 <div class="modal-footer">
+                <div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" >CERRAR</button>
-                  <button type="button" class="btn btn-primary" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" id="btn" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
                   </form>
                 </div>
               </div>
@@ -696,12 +791,14 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 echo '</DIV><DIV CLASS="col border-left">';
                 //cierre de brecha
                 
-                $sql3='SELECT DATE_FORMAT(fecha, "%d/%m/%Y") as fecha, `titulo`, `descripcion`, CONCAT(u.nombre, " ",u.seg_nombre, " ",u.pri_apellido, " ",u.seg_apellido) as nombre_completo , `imagen`, rut, email, u.telefono, c.autor as autor FROM `cierres` c, usuarios u  WHERE id_brecha = '.$id_brecha.' and c.autor = u.id';
+                $sql3='SELECT c.id as id_c, DATE_FORMAT(fecha, "%d/%m/%Y") as fecha,DATE_FORMAT(fecha, "%Y-%m-%d") as fecha2, `titulo`, `descripcion`, CONCAT(u.nombre, " ",u.seg_nombre, " ",u.pri_apellido, " ",u.seg_apellido) as nombre_completo , `imagen`, rut, email, u.telefono, c.autor as autor FROM `cierres` c, usuarios u  WHERE id_brecha = '.$id_brecha.' and c.autor = u.id';
                 $result3 = $conexion -> query($sql3);
                 if($result3->num_rows > 0){
                     if($row3 = $result3->fetch_array(MYSQLI_ASSOC)){
+                        $id_c = $row3['id_c'];
                         $titulo_c = $row3['titulo'];
                         $fecha_c = $row3['fecha'];
+                        $fecha_c2 = $row3['fecha2'];
                         $nombre_c = $row3['nombre_completo'];
                         $descripcion_c = $row3['descripcion'];
                         $imagen_c = $row3['imagen'];
@@ -714,7 +811,128 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                         echo "<h2 class='text-center font-weight-bold '>" . $titulo_c . "</H2>";
                         echo '</div>      <div class="col">';
 
-                        //edicion??
+                        //EDICION
+                        if ($_SESSION['area'] == $area_brechas OR $_SESSION['tipo'] == 1){
+                           echo '<button title="Editar cierre" type="button"  class="btn btn-outline-light float-right  font-weight-bold" id="editar" data-toggle="modal" data-target="#modalEditaCierre">
+                               <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                   <path fill-rule="evenodd" d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                               </svg>
+                            
+                           </button>';
+
+                           echo '<div class="modal fade" id="modalEditaCierre" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                       <div class="modal-dialog modal-dialog-centered modal-lg">
+                         <div class="modal-content">
+                           <div class="modal-header">
+                             <h5 class="modal-title" id="exampleModalCenterTitle">Edición de cierre</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                               <span aria-hidden="true">×</span>
+                             </button>
+                           </div>
+                           <div class="modal-body">
+                               <form action="return false" onsubmit="return false" method="POST" enctype="multipart/form-data">
+                                   <div class="form-group">
+                                       <label for="txtTitulo_c">Título</label>
+                                       <input type="text"  name="txtTitulo_c"  class="form-control" required id="txtTitulo2_c" placeholder="Título" value="'.$titulo_c.'">
+                                   </div>
+                                   <div class="form-group">
+                                       <label for="txtTitulo_c">Descripción</label>
+                                       <textarea rows="5" cols="10"  name="txtDescripcion_c" required class="form-control" id="txtDescripcion2_c" placeholder="Descripción">'.$descripcion_c.'</textarea>
+                                   </div>
+                                   <div class="form-group">
+                                       <label for="txtTitulo_c">Fecha</label>
+                                       <input type="date"  name="txtFecha_c"  class="form-control" required id="txtFecha2_c" value="'.$fecha_c2.'">
+                                   </div>
+                                   ';
+                           echo '<div class="form-group">
+                                       <label for="txtImagen_c">Imagen</label>';
+                           echo "<script>var borrar = 0;</script>";
+                           if ($imagen_c != ''){
+                               echo'<input type="file"  name="txtImagen2_c" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file " id="txtImagen2_c" style="display:none;">';
+                               echo'<button type="button" class="btn btn-light" onclick="borra_img_c();" id="btn_imagen_c"><img src="../cierres/'.$imagen_c.'"  class="img-thumbnail" alt="Responsive image" id="img1"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                               <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                             </svg></button>';
+                               echo '<script>
+                                   var borrar_c = 0;
+                                   function borra_img_c(){
+                                       var rc = confirm("¿Desea eliminar esta imagen?");
+                                       if (rc == true) {
+                                           $("#txtImagen2_c").show();
+                                           $("#btn_imagen_c").hide();
+                                           borrar_c = 1;
+                                       } else {
+                                           borrar_c = 0;
+                                       }
+                                   }
+                                   </script>';
+           
+                           }else{
+                                  echo'<input type="file"  name="txtImagen2_c" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file" id="txtImagen2_c" >';
+           
+                           }
+                           echo ' </div>';
+
+
+                           echo "<script>
+                                           function edita_cierre(titulo, descripcion, fecha, imagen)
+                                           {
+                                           $('#loading').show();$('#btn').prop('disabled', true);
+                                            var formData_c = new FormData();
+                                            formData_c.append('titulo', titulo);
+                                            formData_c.append('descripcion',descripcion);
+                                            formData_c.append('fecha',fecha);
+
+
+                                            formData_c.append('imagen',imagen);
+                                            var id_cierre = ".$id_c.";
+                                            formData_c.append('id_cierre',id_cierre);
+                                            formData_c.append('borrar',borrar_c);
+
+                                                $.ajax({
+                                                        url: 'edita_cierre.php',
+                                                        type: 'POST',
+                                                        data: formData_c,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: function(resp){
+                                                                //$('#contenido').html(resp);
+                                                                $('#loading').hide(); $('#btn').prop('disabled', false);
+                                                                alert(resp);
+                                                                $('body').removeClass('modal-open');
+                                                                $('.modal-backdrop').remove();
+                                                                //$('#resumen').load(' #resumen');
+                                                                 location.reload();
+                                                        }
+                                                });
+                                           }
+
+
+                                           </script>";
+
+
+
+
+                                echo ' </div>
+                           <div class="modal-footer">
+                           <div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
+                             <button type="button" class="btn btn-secondary" data-dismiss="modal" >CERRAR</button>
+                             <button type="button" class="btn btn-primary" id="btn" onclick="edita_cierre( $(\'#txtTitulo2_c\').val() , $(\'#txtDescripcion2_c\').val() , $(\'#txtFecha2_c\').val() ,  $(\'#txtImagen2_c\')[0].files[0]  )">GUARDAR</button>
+                             </form>
+                           </div>
+                         </div>
+                       </div>
+                       </div>';
+
+
+
+
+
+
+                       }//FIN EDICION
 
                         echo "</div></div>";
 
@@ -801,11 +1019,135 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                         
                     </script>";
                 }
+                if ($_SESSION['area'] == '0' or $_SESSION['tipo'] == 1 ){//COMENTARIOS
+                //modal para comentarios
+                echo '<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalCenterTitle">Comentarios a brecha</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="return false" onsubmit="return false" method="POST" >
+
+
+                                    <div class="form-group">
+                                        <label for="txtTitulo">Comentario</label>
+                                        <textarea class="form-control" id="txtComentario" name="txtComentario" rows="4" placeholder="Ingrese comentario aquí" required></textarea>
+                                      </div><label>Enviar a:</label>
+                                      <div class="form-check">
+
+                                        <input type="checkbox" class="form-check-input" id="chAutor" name="chAutor" >
+                                        <label class="form-check-label" for="exampleCheck1">Area autora</label>
+                                        </div><div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="chReceptor" name="chReceptor" >
+                                        <label class="form-check-label" for="exampleCheck1">Area receptora</label>
+                                        </div><div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="chAdmin" name="chAdmin" >
+                                        <label class="form-check-label" for="exampleCheck1">Administrador</label>
+                                      </div>
+
+                            </div>
+                            <div class="modal-footer">
+                            <div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                              <button type="button" class="btn btn-primary" id="btn" onclick="comentario( $(\'#txtComentario\').val())">GUARDAR</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        </div>';
+                echo '<button type="button" class="btn btn-info btn-lg btn-block mt-5" data-toggle="modal" data-target="#exampleModalCenter" >Comentar</button>';
+                echo "<script>
+                    function comentario(contenido){
+                                var autor = 0;
+                                var receptor = 0;
+                                var admin = 0;
+
+                                if( $('#chAutor').prop('checked') ) {
+                                    var autor = 1;
+                                }
+                                if( $('#chReceptor').prop('checked') ) {
+                                    var receptor = 1;
+                                }
+                                if( $('#chAdmin').prop('checked') ) {
+                                    var admin = 1;
+                                }
+
+                                if(admin == 1 || receptor == 1 || autor == 1){
+                                     if(contenido !=''){
+                                     $('#loading').show();$('#btn').prop('disabled', true);
+                                            $.ajax({
+                                                url: 'envia_comentario.php',
+                                                type: 'POST',
+                                                data: 'comentario='+contenido+'&admin='+admin+'&autor='+autor+'&receptor='+receptor+'&brecha='+".$id_brecha.",
+                                                success: function(resp){
+                                                        $('#loading').hide(); $('#btn').prop('disabled', false);
+                                                        alert(resp);
+                                                        $('body').removeClass('modal-open');
+                                                        $('body').removeClass('modal-dialog');
+                                                        $('.modal-backdrop').remove();
+                                                        $('#exampleModalCenter').hide();
+
+                                                }
+                                                 });
+                                    }else{
+                                        alert('Debe escribir un comentario para continuar.');
+                                       }
+                                }else{
+                                    alert('Debe seleccionar al menos uno para continuar.');
+                                }
+
+
+                    }//finfuncion
+
+
+
+                </script>";
+
+                }
             }elseif($estado == "CERRADA"){ // ----------------------------------------------------------------------------------------------------
                 echo '<div class="row">
                     <div class="col border-right"> ';
                 //brecha
-                echo'<div class= "row"> <div class="col"></div>
+                echo'<div class= "row"> <div class="col">';
+                if ($_SESSION['tipo'] == 1){
+                    echo '<button onclick="elimina_brecha()" type="button" title="Eliminar brecha" class="btn btn-outline-danger float-left"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                       <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                     </svg></button>';
+                    echo "<script>
+                        function elimina_brecha(titulo, descripcion, fecha, imagen)
+                                   {
+                                   var pregunta = confirm('Si existen cierres para esta brecha también se elimnarán');
+                                   if (pregunta == true) {
+                                       //var formData = new FormData();
+                                       var id_brecha = ".$id_brecha.";
+                                       //formData.append('id_brecha',id_brecha);
+
+                                           $.ajax({
+                                                   url: 'elimina_brecha.php',
+                                                   type: 'POST',
+                                                   data: 'id_brecha='+id_brecha,
+                                                   success: function(resp){
+                                                           alert(resp);
+                                                           location.reload();
+                                                   }
+                                           });
+                                   } 
+
+
+
+                                   }
+                     </script>";
+                }
+                echo'</div>
                 <div class="col-8">  ';
             echo "<h2 class='text-center font-weight-bold '>".$titulo."</H2>";
             echo '</div>      <div class="col">';//sin comentario
@@ -953,7 +1295,100 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 
 
                 echo '</div></div>';
-               
+            if ($_SESSION['area'] == '0' or $_SESSION['tipo'] == 1 ){//COMENTARIOS
+                //modal para comentarios
+                echo '<div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" style="display: none;" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalCenterTitle">Comentarios a brecha</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="return false" onsubmit="return false" method="POST" >
+
+
+                                    <div class="form-group">
+                                        <label for="txtTitulo">Comentario</label>
+                                        <textarea class="form-control" id="txtComentario" name="txtComentario" rows="4" placeholder="Ingrese comentario aquí" required></textarea>
+                                      </div><label>Enviar a:</label>
+                                      <div class="form-check">
+
+                                        <input type="checkbox" class="form-check-input" id="chAutor" name="chAutor" >
+                                        <label class="form-check-label" for="exampleCheck1">Area autora</label>
+                                        </div><div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="chReceptor" name="chReceptor" >
+                                        <label class="form-check-label" for="exampleCheck1">Area receptora</label>
+                                        </div><div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="chAdmin" name="chAdmin" >
+                                        <label class="form-check-label" for="exampleCheck1">Administrador</label>
+                                      </div>
+
+                            </div>
+                            <div class="modal-footer">
+                            <div class="text-center" id = "loading" style="display:none;">
+                        <div class="spinner-border" role="status">
+                          <span class="sr-only">Cargando...</span>
+                        </div>
+                      </div>
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
+                              <button type="button" class="btn btn-primary" id="btn"  onclick="comentario( $(\'#txtComentario\').val())">GUARDAR</button>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                        </div>';
+                echo '<button type="button" class="btn btn-info btn-lg btn-block mt-5" data-toggle="modal" data-target="#exampleModalCenter" >Comentar</button>';
+                echo "<script>
+                    function comentario(contenido){
+                                var autor = 0;
+                                var receptor = 0;
+                                var admin = 0;
+
+                                if( $('#chAutor').prop('checked') ) {
+                                    var autor = 1;
+                                }
+                                if( $('#chReceptor').prop('checked') ) {
+                                    var receptor = 1;
+                                }
+                                if( $('#chAdmin').prop('checked') ) {
+                                    var admin = 1;
+                                }
+
+                                if(admin == 1 || receptor == 1 || autor == 1){
+                                     if(contenido !=''){
+                                     $('#loading').show();$('#btn').prop('disabled', true);
+                                            $.ajax({
+                                                url: 'envia_comentario.php',
+                                                type: 'POST',
+                                                data: 'comentario='+contenido+'&admin='+admin+'&autor='+autor+'&receptor='+receptor+'&brecha='+".$id_brecha.",
+                                                success: function(resp){
+                                                $('#loading').hide(); $('#btn').prop('disabled', false);
+                                                        alert(resp);
+                                                        $('body').removeClass('modal-open');
+                                                        $('body').removeClass('modal-dialog');
+                                                        $('.modal-backdrop').remove();
+                                                        $('#exampleModalCenter').hide();
+
+                                                }
+                                                 });
+                                    }else{
+                                        alert('Debe escribir un comentario para continuar.');
+                                       }
+                                }else{
+                                    alert('Debe seleccionar al menos uno para continuar.');
+                                }
+
+
+                    }//finfuncion
+
+
+
+                </script>";
+
+                }   
                 
                 
             }

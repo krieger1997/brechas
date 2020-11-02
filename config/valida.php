@@ -41,6 +41,11 @@ if(!isset($_SESSION['id'])  && !isset($_SESSION['tipo']) && !isset($_SESSION['ar
                 $('#logeo').hide();
                 $('.salir').show();
                 </script>";
+            if ($_SESSION['tipo'] == 1){
+            echo "<script>
+            $('.admin').show();
+                </script>";
+        }
 
         }else{
             error();

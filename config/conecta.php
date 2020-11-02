@@ -5,18 +5,29 @@ $user="root";
 $pass="Zoolitario  1";
 //$pass="adminadmin";
 $db="brechas";
+/*
+$host="localhost";
+$user="pidencoc_brechas2";
+$pass="pruebabrechas";
+$db="pidencoc_brechas2";
+ */
+
+
+
+
+
 $conexion = mysqli_connect($host,$user,$pass,$db) or die ("Error al conectar a la bd ");
 return $conexion;
 }
 function despliega_menu($conexion){
    //echo "<div style='background-color: #F26852'>".$_SESSION['area']."</div>";
     
-    echo '<div class="row row-cols-3">';
+    echo '<div class="row row-cols-3 areas">';
     $sql = "SELECT `ID_AREA`, `NOMBRE_AREA` FROM `areas` where ID_AREA <> 0";
     $res = $conexion->query($sql);
     if ($res->num_rows > 0){
         while ($row = $res->fetch_array(MYSQLI_ASSOC) ){
-            echo '<div class="col"><button type="button" class="btn btn-secondary btn-lg salmon" id="'.$row['ID_AREA'].'" style="width:100%; margin-top:15%;">'.$row['NOMBRE_AREA'].'</button></div>';
+            echo '<div class="col"><button type="button" class="btn btn-secondary btn-lg salmon" id="'.$row['ID_AREA'].'" style="width:100%; margin-top:15%;">'.utf8_encode($row['NOMBRE_AREA']).'</button></div>';
         }
     }
     echo "<script>"
@@ -32,7 +43,7 @@ function despliega_menu($conexion){
 		});
 	}"
     . "$(function() {"
-    . "        $(document).on('click', 'button[type=\"button\"]', function(event) {
+    . "        $('body .areas').on('click', 'button[type=\"button\"]', function(event) {
                     let id = this.id;
                     if (id != 'crea'){
                         resumen(id);
