@@ -33,17 +33,7 @@ function head($titulo){
     <div class="p-2 bd-highlight"></div> 
     <div class="p-2 bd-highlight "><button type="button" class="btn btn-outline-danger salir" id="cerrar" onclick=\'window.location.href="config/salir.php"\'>CERRAR SESIÓN</button></div> 
     </div>';
-    echo '<script>
-$(document).ready(function() {
-$(".modal-footer").prepend(\'<div class="text-center" id = "loading" style="display:none;">
-                        <div class="spinner-border" role="status">
-                          <span class="sr-only">Cargando...</span>
-                        </div>
-                      </div> \');
-});
-
-
-   </script>';
+   
     
     
     

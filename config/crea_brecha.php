@@ -9,6 +9,8 @@ $fecha=$_POST['fecha'];
 $descripcion=$_POST['descripcion'];
 $titulo=$_POST['titulo'];
 $autor =$_SESSION['id'];
+$limite =$_POST['limite'];
+$limite2 = date("d/m/Y", strtotime($limite));
 
 $nombre_img = $_FILES['imagen']['name'];
 $tipo = $_FILES['imagen']['type'];
@@ -71,6 +73,7 @@ $contenido='<!DOCTYPE html>
         <td>Descripción</td>
         <td>Area destino</td>
         <td>Fecha</td>
+        <td>Fecha límite</td>
 
     </tr>
     <tr>
@@ -79,6 +82,7 @@ $contenido='<!DOCTYPE html>
         <td>'.$descripcion.'</td>
         <td>'.$area_nombre.'</td>
         <td>'.$fecha.'</td>
+        <td>'.$limite2.'</td>
     </tr>
 
 </table>
@@ -97,7 +101,10 @@ $contenido='<!DOCTYPE html>
 </html>';
 $encabezado= 'MIME-Version: 1.0' . "\r\n";
 $encabezado .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-$encabezado .= "From: Sistema Gestión de Brechas";
+$encabezado .= "X-Priority: 3\n";
+$encabezado .= "X-MSMail-Priority: Normal\n";
+$encabezado .= "X-Mailer: php\n";
+$encabezado .= "From: \"Sistema Gestión de Brechas\" <no-responder@pruebab.pidenco.cl>";
 
 
 
@@ -112,7 +119,7 @@ if( isset($_FILES['imagen']) && $nombre_img == !NULL ){
         if(move_uploaded_file($_FILES['imagen']['tmp_name'],$directorio.$nombre_img )){
         
             
-                $sql="INSERT INTO `brechas`( `area`, `fecha`, `titulo`, `descripcion`, `autor`, `imagen`) VALUES ($area, '$fecha', '$titulo', '$descripcion', $autor, '$nombre_img')";
+                $sql="INSERT INTO `brechas`( `area`, `fecha`, `titulo`, `descripcion`,`limite` , `autor`, `imagen`) VALUES ($area, '$fecha', '$titulo', '$descripcion', '$limite', $autor, '$nombre_img')";
                 if(mysqli_query($conexion,$sql) && mail($para, $asunto, $contenido, $encabezado)){
                     $resultado ="¡Brecha creada exitosamente!";
                     
@@ -133,7 +140,7 @@ if( isset($_FILES['imagen']) && $nombre_img == !NULL ){
     }
 }else{
     
-    $sql="INSERT INTO `brechas`( `area`, `fecha`, `titulo`, `descripcion`, `autor`) VALUES ($area, '$fecha', '$titulo', '$descripcion', $autor)";
+    $sql="INSERT INTO `brechas`( `area`, `fecha`, `titulo`, `descripcion`,`limite`, `autor`) VALUES ($area, '$fecha', '$titulo', '$descripcion','$limite', $autor)";
     if(mysqli_query($conexion,$sql)  && mail($para, $asunto, $contenido, $encabezado)){
         $resultado ="¡Brecha creada exitosamente sin imagen!";
     }else{

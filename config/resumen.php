@@ -100,6 +100,10 @@ if(isset($_POST['area'])){
                             <input type="date"  name="txtFecha"  class="form-control" required id="txtFecha" value="'.date("Y-m-d").'">
                         </div>
                         <div class="form-group">
+                            <label for="txtLimite">Plazo máximo</label>
+                            <input type="date"  name="txtLimite"  class="form-control" required id="txtLimite" >
+                        </div>
+                        <div class="form-group">
                             <label for="txtImagen">Imagen</label>
                             <input type="file"  name="txtImagen" accept="image/png, .jpeg, .jpg, image/gif"  class="form-control-file" id="txtImagen" >
                         </div>
@@ -113,7 +117,7 @@ if(isset($_POST['area'])){
                         </div>
                       </div>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">CERRAR</button>
-                  <button type="button" class="btn btn-primary" id="btn" onclick="crea_brecha( $(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() , $(\'#txtImagen\')[0].files[0] )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" id="btn" onclick="crea_brecha( $(\'#txtTitulo\').val() , $(\'#txtDescripcion\').val() , $(\'#txtFecha\').val() ,  $(\'#txtLimite\').val() , $(\'#txtImagen\')[0].files[0] )">GUARDAR</button>
                   </form>
                 </div>
               </div>
@@ -122,14 +126,16 @@ if(isset($_POST['area'])){
     
     
     echo "<script>
-	function crea_brecha(titulo, descripcion, fecha, imagen)
+	function crea_brecha(titulo, descripcion, fecha,limite, imagen)
 	{
-        $('#loading').show();$('#btn').prop('disabled', true);
+        $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
+//$('#loading').show();$('#btn').prop('disabled', true);
         var area = ".$area.";
         var formData = new FormData();
         formData.append('titulo', titulo);
         formData.append('descripcion',descripcion);
         formData.append('fecha',fecha);
+        formData.append('limite',limite);
         formData.append('area',area);
         formData.append('imagen',imagen);
         
@@ -143,7 +149,8 @@ if(isset($_POST['area'])){
                         processData: false,
 			success: function(resp){
 				//$('#contenido').html(resp);
-                                $('#loading').hide(); $('#btn').prop('disabled', false);
+                                $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);
+                                // $('#loading').hide(); $('#btn').prop('disabled', false);
                                 alert(resp);
                                 $('body').removeClass('modal-open');
                                 $('.modal-backdrop').remove();

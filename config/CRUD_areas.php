@@ -50,13 +50,15 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
             ';
     echo "<script>
     function agrega_area(nombreArea){  
-    $('#loading').show();$('#btn').prop('disabled', true);
+    //$('#loading').show();$('#btn').prop('disabled', true);
+    $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
         $.ajax({
                 url: 'agrega_area.php',
                 type: 'POST',
                 data: 'nombreArea='+nombreArea,
                 success: function(resp1){
-                    $('#loading').hide(); $('#btn').prop('disabled', false);
+                    $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);
+                        //$('#loading').hide(); $('#btn').prop('disabled', false);
                         if(resp1 == 0){
                             alert('¡Área creada exitosamente!');
                             location.reload();
@@ -144,8 +146,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 //EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION EDICION 
         
         echo "<script>function edita_area(nombreArea){
-            $('#loading').show();$('#btn').prop('disabled', true);
-        
+            //$('#loading').show();$('#btn').prop('disabled', true);
+            $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
         var formDatax2 = new FormData();
         formDatax2.append('nombreArea',nombreArea);
 
@@ -158,8 +160,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 contentType: false,
                 processData: false,
                 success: function(resp){
-                
-$('#loading').hide(); $('#btn').prop('disabled', false);
+                $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);
+                //$('#loading').hide(); $('#btn').prop('disabled', false);
                         if(resp == 1){
                             alert('¡Área editada exitosamente!');
                             location.reload();

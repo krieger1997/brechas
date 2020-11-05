@@ -12,7 +12,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
 
     $id_brecha = $_POST['id_brecha'];
-    $sql = 'SELECT b.area as area_brecha, DATE_FORMAT(fecha, "%d/%m/%Y") as fecha,DATE_FORMAT(fecha, "%Y-%m-%d") as fecha2, `titulo`, `descripcion`, CONCAT(u.nombre, " ",u.seg_nombre, " ",u.pri_apellido, " ",u.seg_apellido) as nombre_completo , `imagen`, `estado`, rut, email, u.telefono, b.autor as autor FROM `brechas` b, usuarios u  WHERE b.id = '.$id_brecha.' and b.autor = u.id';
+    $sql = 'SELECT b.area as area_brecha, DATE_FORMAT(fecha, "%d/%m/%Y") as fecha,DATE_FORMAT(fecha, "%Y-%m-%d") as fecha2, `titulo`, `descripcion`, DATE_FORMAT(limite, "%d/%m/%Y") as limite ,DATE_FORMAT(limite, "%Y-%m-%d") as limite2, CONCAT(u.nombre, " ",u.seg_nombre, " ",u.pri_apellido, " ",u.seg_apellido) as nombre_completo , `imagen`, `estado`, rut, email, u.telefono, b.autor as autor FROM `brechas` b, usuarios u  WHERE b.id = '.$id_brecha.' and b.autor = u.id';
     $result = $conexion -> query($sql);
     if($result->num_rows > 0){
         if($row = $result->fetch_array(MYSQLI_ASSOC)){
@@ -21,6 +21,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
             $fecha2 = $row['fecha2'];
             $nombre = $row['nombre_completo'];
             $descripcion = $row['descripcion'];
+            $limite = $row['limite'];
+            $limite2 = $row['limite2'];
             $imagen = $row['imagen'];
             $rut = $row['rut'];
             $email = $row['email'];
@@ -46,14 +48,13 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                      </svg>Eliminar</button>';
                     echo "<script>
-                        function elimina_brecha(titulo, descripcion, fecha, imagen)
+                        function elimina_brecha()
                                    {
                                    var pregunta = confirm('Si existen cierres para esta brecha también se elimnarán');
                                    if (pregunta == true) {
-                                       //var formData = new FormData();
-                                       var id_brecha = ".$id_brecha.";
-                                       //formData.append('id_brecha',id_brecha);
-
+                                        var pregunta2 = confirm('Esta acción no se puede deshacer.  ¿Está segur@?');
+                                        if (pregunta2==true){
+                                        var id_brecha = ".$id_brecha.";
                                            $.ajax({
                                                    url: 'elimina_brecha.php',
                                                    type: 'POST',
@@ -63,7 +64,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                                            location.reload();
                                                    }
                                            });
-                                   } 
+                                        }//fin p2
+                                   }//fin ifp1 
 
 
 
@@ -108,7 +110,16 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                             <label for="txtTitulo">Fecha</label>
                             <input type="date"  name="txtFecha"  class="form-control" required id="txtFecha2" value="'.$fecha2.'">
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="txtLimite2">Plazo máximo</label>
+                            <input type="date"  name="txtLimite2"  class="form-control" required id="txtLimite2" value="'.$limite2.'">
+                        </div>
                         ';
+                if ($_SESSION['tipo'] != 1){
+                    echo "<script> $('#txtLimite2').prop('disabled', true);</script>";
+                }
+               
                 echo '<div class="form-group">
                             <label for="txtImagen">Imagen</label>';
                 echo "<script>var borrar = 0;</script>";
@@ -205,14 +216,16 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
 
                 echo "<script>
-                                function edita_brecha(titulo, descripcion, fecha, imagen)
+                                function edita_brecha(titulo, descripcion, fecha,limite ,  imagen)
                                 {
                                 //var area = ".$area.";
-                                    $('#loading').show();$('#btn').prop('disabled', true);
+                                    //$('#loading').show();$('#btn').prop('disabled', true);
+                                    $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
                                 var formData = new FormData();
                                 formData.append('titulo', titulo);
                                 formData.append('descripcion',descripcion);
                                 formData.append('fecha',fecha);
+                                formData.append('limite',limite);
                                 //formData.append('area',area);
 
                                 formData.append('imagen',imagen);
@@ -229,7 +242,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                                 contentType: false,
                                                 processData: false,
                                                 success: function(resp){
-                                                    $('#loading').hide(); $('#btn').prop('disabled', false);
+                                                    $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);
+                                                //$('#loading').hide(); $('#btn').prop('disabled', false);
                                                         //$('#contenido').html(resp);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
@@ -254,7 +268,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                         </div>
                       </div>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" >CERRAR</button>
-                  <button type="button" class="btn btn-primary" id="btn" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" id="btn" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() , $(\'#txtLimite2\').val(),   $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
                   </form>
                 </div>
               </div>
@@ -314,6 +328,9 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
             echo'<div class= "row row-cols-2"> <div class="col-4 font-weight-bold text-right">Fecha:</div>
                 <div class="col-8">'.$fecha.'</div>
                 </div>';
+            echo'<div class= "row row-cols-2"> <div class="col-4 font-weight-bold text-right">Plazo máximo:</div>
+                <div class="col-8">'.$limite.'</div>
+                </div>';
 
             if ($imagen != ''){
                 echo'<div class= "row"> <div class="col font-weight-bold text-right">Imagen:</div>
@@ -370,8 +387,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 echo "<script>
                         function cierra_brecha(titulo, descripcion, fecha, imagen)
                         {
-                        $('#loading').show();$('#btn').prop('disabled', true);
-
+                        //$('#loading').show();$('#btn').prop('disabled', true);
+                          $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);  
                         var id_brecha = ".$id_brecha.";
                         var formData = new FormData();
                         formData.append('titulo', titulo);
@@ -389,7 +406,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                         contentType: false,
                                         processData: false,
                                         success: function(resp){
-                                        $('#loading').hide(); $('#btn').prop('disabled', false);
+                    $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);                    
+                    //$('#loading').hide(); $('#btn').prop('disabled', false);
                                                 //$('#contenido').html(resp);
                                                 alert(resp);
                                                 //$('body').removeClass('modal-open');
@@ -470,13 +488,16 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                                 if(admin == 1 || receptor == 1 || autor == 1){
                                      if(contenido !=''){
-                                     $('#loadingCmnt1').show();$('#btnCmnt').prop('disabled', true);
+                                    // $('#loadingCmnt1').show();$('#btnCmnt').prop('disabled', true);
+                                    $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
+                                    
                                             $.ajax({
                                                 url: 'envia_comentario.php',
                                                 type: 'POST',
                                                 data: 'comentario='+contenido+'&admin='+admin+'&autor='+autor+'&receptor='+receptor+'&brecha='+".$id_brecha.",
                                                 success: function(resp){
-                                                        $('#loadingCmnt1').hide(); $('#btnCmnt').prop('disabled', false);
+                                                       // $('#loadingCmnt1').hide(); $('#btnCmnt').prop('disabled', false);
+                                                        $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
                                                         $('body').removeClass('modal-dialog');
@@ -510,11 +531,11 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                      </svg></button>';
                     echo "<script>
-                        function elimina_brecha(titulo, descripcion, fecha, imagen)
+                        function elimina_brecha()
                                    {
                                    var pregunta = confirm('Si existen cierres para esta brecha también se elimnarán');
                                    if (pregunta == true) {
-                                        var pregunta2 = confirm('Esta acción no se puede deshacer.\n ¿Está segur@?');
+                                        var pregunta2 = confirm('Esta acción no se puede deshacer.  ¿Está segur@?');
                                         if(pregunta2 == true){
                                        //var formData = new FormData();
                                        var id_brecha = ".$id_brecha.";
@@ -574,7 +595,15 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                             <label for="txtTitulo">Fecha</label>
                             <input type="date"  name="txtFecha"  class="form-control" required id="txtFecha2" value="'.$fecha2.'">
                         </div>
+                        <div class="form-group">
+                            <label for="txtLimite2">Plazo máximo</label>
+                            <input type="date"  name="txtLimite2"  class="form-control" required id="txtLimite2" value="'.$limite2.'">
+                        </div>
                         ';
+                if ($_SESSION['tipo'] != 1){
+                    echo "<script> $('#txtLimite2').prop('disabled', true);</script>";
+                }
+                        
                 echo '<div class="form-group">
                             <label for="txtImagen">Imagen</label>';
                 echo "<script>var borrar = 0;</script>";
@@ -671,14 +700,16 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
 
                 echo "<script>
-                                function edita_brecha(titulo, descripcion, fecha, imagen)
+                                function edita_brecha(titulo, descripcion, fecha,limite ,  imagen)
                                 {
-                                $('#loading').show();$('#btn').prop('disabled', true);
+                               //$('#loading').show();$('#btn').prop('disabled', true);
+                                $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
                                 //var area = ".$area.";
                                 var formData = new FormData();
                                 formData.append('titulo', titulo);
                                 formData.append('descripcion',descripcion);
                                 formData.append('fecha',fecha);
+                                formData.append('limite',limite);
                                 //formData.append('area',area);
 
                                 formData.append('imagen',imagen);
@@ -695,7 +726,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                                 contentType: false,
                                                 processData: false,
                                                 success: function(resp){
-                                                $('#loading').hide(); $('#btn').prop('disabled', false);
+                                                $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);
+//$('#loading').hide(); $('#btn').prop('disabled', false);
                                                         //$('#contenido').html(resp);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
@@ -720,7 +752,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                         </div>
                       </div>
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" >CERRAR</button>
-                  <button type="button" class="btn btn-primary" id="btn" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
+                  <button type="button" class="btn btn-primary" id="btn" onclick="edita_brecha( $(\'#txtTitulo2\').val() , $(\'#txtDescripcion2\').val() , $(\'#txtFecha2\').val(), $(\'#txtLimite2\').val() ,  $(\'#txtImagen2\')[0].files[0]  )">GUARDAR</button>
                   </form>
                 </div>
               </div>
@@ -779,7 +811,12 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 </div>';
             echo'<div class= "row row-cols-2"> <div class="col-4 font-weight-bold text-right">Fecha:</div>
                 <div class="col-8">'.$fecha.'</div>
-                </div>';
+                </div>
+                ';
+            echo'<div class= "row row-cols-2"> <div class="col-4 font-weight-bold text-right">Plazo máximo:</div>
+                <div class="col-8">'.$limite.'</div>
+                </div>
+                ';
 
             if ($imagen != ''){
                 echo'<div class= "row"> <div class="col font-weight-bold text-right">Imagen:</div>
@@ -876,7 +913,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                            echo "<script>
                                            function edita_cierre(titulo, descripcion, fecha, imagen)
                                            {
-                                           $('#loading').show();$('#btn').prop('disabled', true);
+  $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);                                         
+//$('#loading').show();$('#btn').prop('disabled', true);
                                             var formData_c = new FormData();
                                             formData_c.append('titulo', titulo);
                                             formData_c.append('descripcion',descripcion);
@@ -896,7 +934,8 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                                         processData: false,
                                                         success: function(resp){
                                                                 //$('#contenido').html(resp);
-                                                                $('#loading').hide(); $('#btn').prop('disabled', false);
+$('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);                                                               
+//$('#loading').hide(); $('#btn').prop('disabled', false);
                                                                 alert(resp);
                                                                 $('body').removeClass('modal-open');
                                                                 $('.modal-backdrop').remove();
@@ -1083,13 +1122,15 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                                 if(admin == 1 || receptor == 1 || autor == 1){
                                      if(contenido !=''){
-                                     $('#loading').show();$('#btn').prop('disabled', true);
+                                     $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
+//$('#loading').show();$('#btn').prop('disabled', true);
                                             $.ajax({
                                                 url: 'envia_comentario.php',
                                                 type: 'POST',
                                                 data: 'comentario='+contenido+'&admin='+admin+'&autor='+autor+'&receptor='+receptor+'&brecha='+".$id_brecha.",
                                                 success: function(resp){
-                                                        $('#loading').hide(); $('#btn').prop('disabled', false);
+    $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);                                                    
+    //$('#loading').hide(); $('#btn').prop('disabled', false);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
                                                         $('body').removeClass('modal-dialog');
@@ -1123,14 +1164,16 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                        <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                      </svg></button>';
                     echo "<script>
-                        function elimina_brecha(titulo, descripcion, fecha, imagen)
+                        function elimina_brecha()
                                    {
                                    var pregunta = confirm('Si existen cierres para esta brecha también se elimnarán');
                                    if (pregunta == true) {
+                                        var pregunta2 = confirm('Esta acción no se puede deshacer.  ¿Está segur@?');
+                                        if(pregunta2 == true){
                                        //var formData = new FormData();
                                        var id_brecha = ".$id_brecha.";
                                        //formData.append('id_brecha',id_brecha);
-
+                                        
                                            $.ajax({
                                                    url: 'elimina_brecha.php',
                                                    type: 'POST',
@@ -1141,7 +1184,7 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                                                    }
                                            });
                                    } 
-
+                                   }
 
 
                                    }
@@ -1196,6 +1239,9 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
                 </div>';
             echo'<div class= "row row-cols-2"> <div class="col-4 font-weight-bold text-right">Fecha:</div>
                 <div class="col-8">'.$fecha.'</div>
+                </div>';
+            echo'<div class= "row row-cols-2"> <div class="col-4 font-weight-bold text-right">Plazo máximo:</div>
+                <div class="col-8">'.$limite.'</div>
                 </div>';
 
             if ($imagen != ''){
@@ -1359,13 +1405,15 @@ if(isset($_SESSION['id'])  && isset($_SESSION['tipo']) && isset($_SESSION['area'
 
                                 if(admin == 1 || receptor == 1 || autor == 1){
                                      if(contenido !=''){
-                                     $('#loading').show();$('#btn').prop('disabled', true);
+                                     $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
+//$('#loading').show();$('#btn').prop('disabled', true);
                                             $.ajax({
                                                 url: 'envia_comentario.php',
                                                 type: 'POST',
                                                 data: 'comentario='+contenido+'&admin='+admin+'&autor='+autor+'&receptor='+receptor+'&brecha='+".$id_brecha.",
                                                 success: function(resp){
-                                                $('#loading').hide(); $('#btn').prop('disabled', false);
+$('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);                                                
+//$('#loading').hide(); $('#btn').prop('disabled', false);
                                                         alert(resp);
                                                         $('body').removeClass('modal-open');
                                                         $('body').removeClass('modal-dialog');

@@ -25,7 +25,7 @@ $resultado = "--";
 
 
 
-$sql1 = 'SELECT brechas.area as area, areas.NOMBRE_AREA as nombre_area , `fecha`, `titulo`, `descripcion`, CONCAT(`nombre`," ",`pri_apellido`, " ",`seg_apellido`) as nombre, email, telefono FROM `brechas`, usuarios, areas WHERE brechas.id = '.$id_brecha.' and usuarios.id = autor and areas.ID_AREA = brechas.area ';
+$sql1 = 'SELECT brechas.area as area, areas.NOMBRE_AREA as nombre_area , `fecha`, `titulo`, `descripcion`, CONCAT(`nombre`," ",`pri_apellido`, " ",`seg_apellido`) as nombre, email, telefono, DATE_FORMAT(limite, "%d/%m/%Y") as limite FROM `brechas`, usuarios, areas WHERE brechas.id = '.$id_brecha.' and usuarios.id = autor and areas.ID_AREA = brechas.area ';
 $result1 = $conexion -> query($sql1);
 if($result1->num_rows > 0){
     if($row1 = $result1->fetch_array(MYSQLI_ASSOC)){
@@ -37,6 +37,7 @@ if($result1->num_rows > 0){
         $titulo_b = $row1['titulo'];
         $descripcion_b = $row1['descripcion'];
         $area_nombre = $row1['nombre_area'];
+        $limite = $row1['limite'];
             
         
         
@@ -46,12 +47,12 @@ if($result1->num_rows > 0){
 }
 
 $sqlz = 'SELECT CONCAT(`nombre`," ",`pri_apellido`, " ",`seg_apellido`) as nombre, email, telefono  FROM `usuarios` WHERE `id` = '.$_SESSION['id'].' ';
-$result = $conexion -> query($sql1);
-if($result->num_rows > 0){
-    if($row = $result->fetch_array(MYSQLI_ASSOC)){
-        $autor_nombre_c = $row['nombre'];
-        $autor_email_c = $row['email'];
-        $autor_telefono_c = $row['telefono'];
+$resultz = $conexion -> query($sqlz);
+if($resultz->num_rows > 0){
+    if($rowz = $resultz->fetch_array(MYSQLI_ASSOC)){
+        $autor_nombre_c = $rowz['nombre'];
+        $autor_email_c = $rowz['email'];
+        $autor_telefono_c = $rowz['telefono'];
     }
 }
 
@@ -83,12 +84,14 @@ $contenido='<!DOCTYPE html>
         <td>Descripción</td>
         <td>Area destino</td>
         <td>Fecha</td>
+        <td>Fecha límite</td>
     </tr>
     <tr>
         <td>'.$titulo_b.'</td>
         <td>'.$descripcion_b.'</td>
         <td>'.utf8_encode($area_nombre).'</td>
         <td>'.$fecha_b.'</td>
+        <td>'.$limite.'</td>
     </tr>
 </table>
 <br>
@@ -131,10 +134,12 @@ $contenido='<!DOCTYPE html>
 
 
 
-
 $encabezado= 'MIME-Version: 1.0' . "\r\n";
 $encabezado .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-$encabezado .= "From: Sistema Gestión de Brechas";
+$encabezado .= "X-Priority: 3\n";
+$encabezado .= "X-MSMail-Priority: Normal\n";
+$encabezado .= "X-Mailer: php\n";
+$encabezado .= "From: \"Sistema Gestión de Brechas\" <no-responder@pruebab.pidenco.cl>";
 
 
 

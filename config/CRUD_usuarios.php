@@ -149,7 +149,8 @@ echo "function agrega_usuario(nombreUsuario, contrasena, tipo, area, rut, nombre
             alert('Contraseñas deben ser iguales');
             $('#txtContrasena2').focus();
         }else{
-        $('#loading').show();$('#btn').prop('disabled', true);
+        $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
+        //$('#loading').show();$('#btn').prop('disabled', true);
         var formDatax = new FormData();
         formDatax.append('nombreUsuario',nombreUsuario);
         formDatax.append('contrasena',contrasena);
@@ -170,7 +171,8 @@ echo "function agrega_usuario(nombreUsuario, contrasena, tipo, area, rut, nombre
                 contentType: false,
                 processData: false,
                 success: function(resp1){
-                    $('#loading').hide(); $('#btn').prop('disabled', false);
+                    $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);
+                //$('#loading').hide(); $('#btn').prop('disabled', false);
                         if(resp1 == 0){
                             alert('¡Usuario creado exitosamente!');
                             location.reload();
@@ -319,7 +321,8 @@ echo '
             alert('Contraseñas deben ser iguales');
             $('#txtContrasena2_ed').focus();
         }else{
-        $('#loading').show();$('#btn').prop('disabled', true);
+        $('.modal-footer .text-center').show(); $('.modal-footer .btn').prop('disabled', true);
+        //$('#loading').show();$('#btn').prop('disabled', true);
         var formDatax2 = new FormData();
         formDatax2.append('nombreUsuario',nombreUsuario);
         formDatax2.append('contrasena',contrasena);
@@ -341,8 +344,8 @@ echo '
                 contentType: false,
                 processData: false,
                 success: function(resp){
-                    
-$('#loading').hide(); $('#btn').prop('disabled', false);
+                  $('.modal-footer .text-center').hide();  $('.modal-footer .btn').prop('disabled', false);  
+//$('#loading').hide(); $('#btn').prop('disabled', false);
                         if(resp == 1){
                             alert('¡Usuario editado exitosamente!');
                             location.reload();

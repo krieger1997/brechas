@@ -9,6 +9,7 @@ $fecha=$_POST['fecha'];
 $descripcion=$_POST['descripcion'];
 $titulo=$_POST['titulo'];
 $brecha = $_POST['brecha'];
+$limite = $_POST['limite'];
 $borrar= $_POST['borrar'];
 //$autor =$_SESSION['id'];
 
@@ -29,7 +30,7 @@ if($borrar == 0){
         if(move_uploaded_file($_FILES['imagen']['tmp_name'],$directorio.$nombre_img )){
         
             try {
-                $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = '$nombre_img' WHERE id = $brecha";
+                $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', limite = '$limite'  ,  imagen = '$nombre_img' WHERE id = $brecha";
                 
                 if(mysqli_query($conexion,$sql)){
                     $resultado ="¡Brecha editada exitosamente!";
@@ -51,7 +52,7 @@ if($borrar == 0){
         
     }else{
         try {
-            $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha'  WHERE id = $brecha";
+            $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', limite = '$limite'  WHERE id = $brecha";
             if(mysqli_query($conexion,$sql)){
                 $resultado ="¡Brecha editada exitosamente sin imagen!";
             }else{
@@ -81,7 +82,7 @@ if($borrar == 0){
                         //echo $directorio;
                         if(move_uploaded_file($_FILES['imagen']['tmp_name'],$directorio.$nombre_img )){
 
-                            $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = '$nombre_img' WHERE id = $brecha";
+                            $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', limite = '$limite', imagen = '$nombre_img' WHERE id = $brecha";
 
                             if(mysqli_query($conexion,$sql)){
                                 $resultado ="¡Brecha editada exitosamente!";
@@ -119,7 +120,7 @@ if($borrar == 0){
                         $img_eliminar=$row1['imagen'];
                         $directorio2 = $_SERVER['DOCUMENT_ROOT']."/brechas/subidas/".$img_eliminar;
                         //$directorio2 = $_SERVER['DOCUMENT_ROOT']."/subidas/".$img_eliminar;//ESTE AL SUBIR
-                        $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', imagen = NULL WHERE id = $brecha";
+                        $sql="UPDATE `brechas` SET titulo = '$titulo', descripcion = '$descripcion', fecha='$fecha', limite = '$limite', imagen = NULL WHERE id = $brecha";
                         if(mysqli_query($conexion,$sql)){
                             $resultado ="¡Brecha editada exitosamente!";
                             unlink($directorio2);

@@ -27,17 +27,29 @@ admin y supervisor -> puede comentar brechas abiertas, pendientes y cerradas (no
 
 
 persona1 GPDO: abre brecha a SSOMA
-le llega correo a personas de area ssoma  y al admin con brecha
+le llega correo a personas de area ssoma  y al admin con brecha (LIVE - claudio_krieger)
 persona1 SSOMA: cierra brecha (pasa a pendiente)
-le llega correo a admin con nueva brecha pendiente 
+le llega correo a admin con nueva brecha pendiente (claudio_krieger)
 admin: revisa cierre y brecha y pide modificaciones a area de ssoma
 persona2 ssoma:modifica cierre de brecha (pendiente)
 admin: aprueba cierre de brecha y cambia estado a cerrado
 
-le llega correo a area gpdo, a area ssoma y a admin con detalle de apertura y cierre
+le llega correo a area gpdo, a area ssoma y a admin con detalle de apertura y cierre (sansano - live - krieger)
 
 
+ccabrera
+1919
 
+
+5filtro ordenar fechas creacion y plazo 
+1plazo cierre a formulario(solo editable por admin) LISTO
+4avisar una semana antes y un dia antes (mail) + dias faltantes para terminar plazo
+certif
+2revisar mail a gmail LISTO
+3revisar correos al confirmar cierre LISTO
+
+pruebaBrechas 1
+no-responder@pruebab.pidenco.cl
 
 
 
