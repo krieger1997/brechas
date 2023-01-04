@@ -21,7 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `brechas`
 --
-
+CREATE DATABASE brechas;
+USE brechas;
 -- --------------------------------------------------------
 
 --
@@ -41,10 +42,10 @@ INSERT INTO `areas` (`ID_AREA`, `NOMBRE_AREA`) VALUES
 (0, 'Supervision'),
 (1, 'Adquisiciones y Abastecimiento'),
 (2, 'Mantenimiento'),
-(3, 'GPDO'),
+(3, 'Gestion Personas'),
 (4, 'Producción'),
 (5, 'Administración'),
-(6, 'Ssoma');
+(6, 'Especial');
 
 -- --------------------------------------------------------
 
@@ -124,7 +125,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nombre_de_usuario`, `contrasena`, `tipo_de_usuario`, `area`, `rut`, `nombre`, `seg_nombre`, `pri_apellido`, `seg_apellido`, `email`, `telefono`) VALUES
-(1, '19598102', 'admin', 1, 3, '19.598.102-7', 'CLAUDIO', 'ALEJANDRO', 'CABRERA', 'MARTÍNEZ', 'claudio_krieger@hotmail.com', '+56979287465'),
+(1, 'admin', 'admin', 1, 3, '19.111.222-7', 'CLAUDIO', 'CLAUDIO', 'CABRERA', 'NEZCAB', 'claudio_krieger@hotmail.com', '+5690000000'),
 (2, '159', '159', 2, 1, '11.111.111-1', 'AAAA', 'BBBBB', 'CCCCC', 'DDDD', 'ABCD@ABCD.COM', '+56900000000'),
 (3, 'super', 'super', 2, 0, '00.000.000-2', 'SUPERVISOR2', 'SUPERVISOR212', 'SUPERVISOR3182', 'SUPERVISOR1182', 'supervisor@a.aa273323', '+56922233333');
 
