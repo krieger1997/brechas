@@ -2,7 +2,7 @@
  function conecta(){
 $host="localhost";
 $user="root";
-$pass="Zoolitario  1";
+$pass="";
 //$pass="adminadmin";
 $db="brechas";
 /*

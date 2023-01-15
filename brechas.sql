@@ -78,7 +78,7 @@ CREATE TABLE `cierres` (
   `descripcion` text NOT NULL,
   `autor` tinyint(4) NOT NULL,
   `imagen` varchar(90) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
