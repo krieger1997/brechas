@@ -58,7 +58,7 @@ Existen 3 tipos de usuarios:
 
 * Usuario normal
 * Supervisor
-*Administrador
+* Administrador
 
 Cada uno con más o menos atributos.
 
